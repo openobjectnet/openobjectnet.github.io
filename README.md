@@ -1,5 +1,7 @@
 # openobjectnet.github.io
 
+**github page 주소 : https://openobjectnet.github.io/**  
+
 로컬 github 페이지 환경 셋팅
 
 1. Ruby 설치  
