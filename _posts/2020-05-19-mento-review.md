@@ -39,24 +39,12 @@ toc_label: "시기별"
 
 `TODO`
 
-Replace `gem "github-pages` or `gem "jekyll"` with `gem "jekyll", "~> 3.3.0"`. You'll need the latest version of Jekyll[^update-jekyll] for Minimal Mistakes to work and load all of the /assets/ properly.
 
-[^update-jekyll]: You could also run `bundle update jekyll` to update Jekyll.
 
-Add the Minimal Mistakes theme gem: 
 
-```ruby
-gem "minimal-mistakes-jekyll"
-```
 
-When finished your `Gemfile` should look something like this:
 
-```ruby
-source "https://rubygems.org"
 
-gem "jekyll", "~> 3.3.0"
-gem "minimal-mistakes-jekyll"
-```
 
 ## Step 3: Run Bundler
 
