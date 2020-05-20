@@ -37,21 +37,17 @@ toc_label: "시기별"
 
 ## 1-2 주차 : DashBoard 프로젝트 생성
 
-목표 : spring 프레임워크로 프로젝트를 생성하여 http API 만들기 
+- 목표 : spring 프레임워크로 프로젝트를 생성하여 http API 만들기 
 
 
+## 1-3 주차 : 테이블 설계 및 DB연동
 
+- 목표 : DashBoard 에 필요한 테이블을 설계하고, WAS <-> DB Server 간 연동
 
+## 1-3 주차 : 화면 구성
 
-
-
-
-
-## Step 3: Run Bundler
-
-Run `bundle install` (or `bundle update` if you're updating an existing repo) to install/update Jekyll and the theme.
-
-## Step 4: Install the Theme
+- 목표 : bootstrap templete 를 활용하여 Dashboard 화면을 구성하고,  
+입력한 정보에 대해서 CRUD를 수행
 
 Add `theme: "minimal-mistakes-jekyll"` to your `_config.yml` file.
 
