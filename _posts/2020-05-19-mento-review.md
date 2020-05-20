@@ -15,7 +15,7 @@ toc_label: "시기별"
 
 멘토링을 진행하면 간단한 프로젝트를 진행하며 개발에 대한 피드백을 진행할 예정이다.  
 
-프로젝트 환경  
+**프로젝트 환경**  
 - server : aws + tomcat  
 - server framework : spring  
 - db : maria DB  
@@ -44,35 +44,12 @@ toc_label: "시기별"
 
 - 목표 : DashBoard 에 필요한 테이블을 설계하고, WAS <-> DB Server 간 연동
 
-## 1-3 주차 : 화면 구성
+## 1-4 주차 : 화면 구성
 
 - 목표 : bootstrap templete 를 활용하여 Dashboard 화면을 구성하고,  
 입력한 정보에 대해서 CRUD를 수행
 
-Add `theme: "minimal-mistakes-jekyll"` to your `_config.yml` file.
+## 2-1 주차 : AWS서버에 프로젝트 배포
 
-If you're migrating from an existing Minimal Mistakes site you shouldn't have to change anything else after this. If it's a new site consult then docs to [properly config]({{ "/docs/configuration/" | relative_url }}).
+- 목표 : 개발한 소스를 AWS서버에 배포
 
-**Please Note:** Paths for image headers, overlays, teasers, [galleries]({{ "/docs/helpers/#gallery" | relative_url }}), and [feature rows]({{ "/docs/helpers/#feature-row" | relative_url }}) have changed and now require a full path. Instead of just `image: filename.jpg` you'll need to use the full path eg: `image: assets/images/filename.jpg`. The preferred location is now `assets/images` but can be placed elsewhere or external hosted. This all applies for image references in `_config.yml` and `author.yml` as well.
-{: .notice--danger}
-
-## Step 5: `jekyll new` Tweaks
-
-If this is a new site be sure to add the following files to `_data/` and customize as you see fit. There is currently no way of bundling them in with the theme, so be sure to consult the docs on how to properly use both.
-
-- [`_data/ui-text.yml`](https://github.com/mmistakes/minimal-mistakes/blob/master/_data/ui-text.yml) - UI text [documentation]({{ "/docs/ui-text/" | relative_url }})
-- [`_data/navigation.yml`](https://github.com/mmistakes/minimal-mistakes/blob/master/_data/navigation.yml) - navigation [documentation]({{ "/docs/navigation/" | relative_url }})
-
-You'll also need to: 
-
-- Replace `<site root>/index.html` with a modified [Minimal Mistakes `index.html`](https://github.com/mmistakes/minimal-mistakes/blob/master/index.html).
-- Change `layout: post` in `_posts/0000-00-00-welcome-to-jekyll.markdown` to `layout: single`.
-- Remove `about.md`, or at the very least change `layout: page` to `layout: single` and remove references to `icon-github.html` (or [copy to your `_includes`](https://github.com/jekyll/minima/tree/master/_includes) if using).
-
----
-
-That's it! If all goes well running `bundle exec jekyll serve` should spin-up your site. If you encounter any bumps please file an issue on GitHub and make sure to indicate you're testing the pre-release Ruby gem version.
-
-[File an issue](https://github.com/mmistakes/minimal-mistakes/issues/new){: .btn .btn--info .btn--large}
-
-Thanks!
