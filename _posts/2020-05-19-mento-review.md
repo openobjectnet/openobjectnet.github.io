@@ -1,5 +1,5 @@
 ---
-title:  "오픈오브젝트 멘토링제도 수행기"
+title:  "오픈오브젝트 멘토링 수행기"
 last_modified_at: 2020-05-19T16:01:04-04:00
 categories: 
   - Experience
