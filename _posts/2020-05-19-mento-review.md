@@ -37,7 +37,8 @@ toc_label: "시기별"
 
 ## 1-2 주차 : DashBoard 프로젝트 생성
 
-`TODO`
+목표 : spring 프레임워크로 프로젝트를 생성하여 http API 만들기 
+
 
 
 
