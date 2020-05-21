@@ -20,6 +20,7 @@ toc_label: "시기별"
 - server framework : spring  
 - db : maria DB  
 - css framework : bootstrap  
+- 소스형상관리 : git (github)
 - 서버배포 도구 : jenkins  
 
 ## 1-1 주차 : 신입 개발자와 멘토링 시작
