@@ -5,6 +5,10 @@ categories:
   - DB
 toc: true  
 last_modified_at: 2020-09-14T08:06:00-05:00
+tags:
+  - Flyway
+  - DB
+  - Spring Boot
 ---
 
 Flyway 를 활용하여 DB마이그레이션 방법과 Flyway를 spring boot에 적용방법을 공유합니다.
@@ -78,10 +82,10 @@ Migrating schema `D_TEST_TEMP` to version 1.1 - Create FlywayUser table
 Successfully applied 1 migration to schema `D_TEST_TEMP` (execution time 00:00.215s)
 ```
 {% capture databaseImg %}
-![Foo]({{ "/assets/images/springDbFlyway1.png" | relative_url }})
+![Foo]({{ "/assets/images/springDbFlywayPost/springDbFlyway1.png" | relative_url }})
 {% endcapture %}
 {% capture flywayData %}
-![Foo]({{ "/assets/images/springDbFlyway2.png" | relative_url }})
+![Foo]({{ "/assets/images/springDbFlywayPost/springDbFlyway2.png" | relative_url }})
 {% endcapture %}
 
 <figure>
@@ -125,7 +129,7 @@ migration 파일명 규칙은 `1-3. Flyway catete table migration` 을 참고.
 서버를 start 시켜주면 자동으로 migration 경로에 있는 파일을 읽어서 migration을 진행합니다.  
 
 {% capture flywayPackageImg %}
-![Foo]({{ "/assets/images/springDbFlyway3.png" | relative_url }})
+![Foo]({{ "/assets/images/springDbFlywayPost/springDbFlyway3.png" | relative_url }})
 {% endcapture %}
 <figure>
   {{ flywayPackageImg | markdownify | remove: "<p>" | remove: "</p>" }}
@@ -164,7 +168,7 @@ INFO  20-09-15 11:23:46 [DbMigrate:49]                           - Successfully 
 
 
 {% capture flywayHistResult1 %}
-![Foo]({{ "/assets/images/springDbFlyway4.png" | relative_url }})
+![Foo]({{ "/assets/images/springDbFlywayPost/springDbFlyway4.png" | relative_url }})
 {% endcapture %}
 <figure>
   {{ flywayHistResult1 | markdownify | remove: "<p>" | remove: "</p>" }}
@@ -172,7 +176,7 @@ INFO  20-09-15 11:23:46 [DbMigrate:49]                           - Successfully 
 </figure>
 
 {% capture flywayHistResult2 %}
-![Foo]({{ "/assets/images/springDbFlyway5.png" | relative_url }})
+![Foo]({{ "/assets/images/springDbFlywayPost/springDbFlyway5.png" | relative_url }})
 {% endcapture %}
 <figure>
   {{ flywayHistResult2 | markdownify | remove: "<p>" | remove: "</p>" }}
