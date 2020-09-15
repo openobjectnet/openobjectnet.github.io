@@ -18,8 +18,8 @@ Flyway 를 활용하여 DB마이그레이션 방법과 Flyway를 spring boot에 
 
 **spring 에 flyway 적용은 2번부터 참고.
 
-**커맨드라인을 통한 DB마이그레이션** 
-커맨드 라인을 통해서 Flyway를 테스트 해봅니다.  
+**커맨드라인을 통한 DB마이그레이션**  
+먼저 커맨드 라인을 통해서 Flyway를 테스트 해봅니다.  
 
 ## 1-1. Flyway 설치
 Flyway 다운로드 : https://flywaydb.org/download/
