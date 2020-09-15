@@ -26,7 +26,9 @@ Flyway 를 활용하여 DB마이그레이션 방법과 Flyway를 spring boot에 
 먼저 커맨드 라인을 통해서 Flyway를 테스트 해봅니다.  
 
 ## 1-1. Flyway 설치
+Flyway설치는 커맨드라인에서 사용할 경우만 필요하고, Spring에서 사용할때는 설치를 안해도 됩니다.(maven dependency로 라이브러리 주입)  
 Flyway 다운로드 : https://flywaydb.org/download/
+
 
 ```yaml
 cd C:\dev\flyway-6.5.5
