@@ -30,7 +30,7 @@ JPA에서 Entity 기본키 매핑 방법은 직접할당과 자동할당 방법�
 > 영속성 컨텍스트
 
 {% capture persistenceContextImg %}
-![Foo]({{ "/assets/images/generationTypePost/persistenceContext.png" |relative_url }})
+![Foo]({{ "/assets/images/generationTypePost/entityManager.png" |relative_url }})
 {% endcapture %}
 
 <figure>
