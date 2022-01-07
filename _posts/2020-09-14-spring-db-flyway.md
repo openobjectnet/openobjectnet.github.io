@@ -18,7 +18,7 @@ Flyway 를 활용하여 DB마이그레이션 방법과 Flyway를 spring boot에 
 또한 예를들어 운영배포를 할때, 소스는 적용했으나 DB가 적용이 안되었거나 혹은 필수로 필요한 코드값을 Insert 못하고
 소스를 적용하여 종종 오류가 발생하곤 한다.  
 
-이런 schema에 대한 적용 및 이력관리를 Flayway를 통해서 가능합니다.  
+이런 schema에 대한 적용 및 이력관리를 Flyway를 통해서 가능합니다.  
 
 **spring 에 flyway 적용은 2번부터 참고.
 
