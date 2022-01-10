@@ -9,6 +9,7 @@ tags:
   - Flyway
   - DB
   - Spring Boot
+author: 최세훈
 ---
 
 Flyway 를 활용하여 DB마이그레이션 방법과 Flyway를 spring boot에 적용방법을 공유합니다.

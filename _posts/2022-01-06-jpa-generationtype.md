@@ -8,6 +8,7 @@ last_modified_at: 2022-01-06T08:06:00-05:00
 tags:
   - JPA
   - Spring Boot
+author: 김가영
 ---
 
 JPA에서 Entity 기본키 매핑 방법은 직접할당과 자동할당 방법이 있습니다.

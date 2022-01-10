@@ -8,6 +8,7 @@ last_modified_at: 2022-01-07T08:06:00-05:00
 tags:
   - JPA
   - Spring Boot
+author: 곽지용
 ---
 
 

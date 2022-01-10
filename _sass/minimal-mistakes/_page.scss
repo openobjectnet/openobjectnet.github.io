@@ -55,8 +55,7 @@ body {
     width: 100%;
     clear: both;
 
-    .page__content,
-    .page__meta,
+    .page__content,    
     .page__share {
       position: relative;
       float: left;
@@ -64,6 +63,12 @@ body {
       margin-right: 0;
       width: 100%;
       clear: both;
+    }
+    .page__meta {
+      position: relative;
+      float: left;
+      width: auto;
+      display: inline;
     }
   }
 }
@@ -290,6 +295,11 @@ body {
 
   a {
     color: inherit;
+  }
+
+  & + .page__meta {
+    margin-top: -0.5em;
+    margin-left: 0.5em;
   }
 }
 
