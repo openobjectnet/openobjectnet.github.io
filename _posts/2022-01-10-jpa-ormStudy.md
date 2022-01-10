@@ -56,17 +56,20 @@ ORM 표준 JPA강좌를 듣고   제가 느끼기에 JPA에서 중요한 개념�
 4. 삭제
     - 객체를 삭제
     - remove() 사용
-    >  영속성 컨텍스트의 이점
-    1. 1차 캐시
-    
+
+>  영속성 컨텍스트의 이점
+
+1. 1차 캐시
+
     ![영속성컨텍스트](https://github.com/namjunemy/TIL/blob/master/Jpa/inflearn/img/03_persistence_context_cache.PNG?raw=true)
 
     ```java
     em.persist(member); //1차캐시에 저장
     em.find(Member.class,member.getId);  //1차 캐시에서 조회
     ```
-    2. 동일성 보장
-            
+
+2. 동일성 보장
+        
     ```java
     Member member1 = em.find(Member.class,"id1");
     Member member2 = em.find(Member.class,"id1");
@@ -74,7 +77,7 @@ ORM 표준 JPA강좌를 듣고   제가 느끼기에 JPA에서 중요한 개념�
     member1 == member2 // true
     ```
 
-    3. 쓰기 지연
+3. 쓰기 지연
 
     ```java
     transaction.begin();
@@ -85,7 +88,7 @@ ORM 표준 JPA강좌를 듣고   제가 느끼기에 JPA에서 중요한 개념�
     transaction.commit(); //이때 db에 저장된다.
     ```
 
-    4. 변경감지
+4. 변경감지
 
     ```java
     transaction.begin();
@@ -94,7 +97,6 @@ ORM 표준 JPA강좌를 듣고   제가 느끼기에 JPA에서 중요한 개념�
     member.setName("newName");
 
     transaction.commit();
-
     ```
 
     ![영속성컨텍스트](https://blog.kakaocdn.net/dn/dG1iTX/btqFa7GzKP5/tCELwKVoc1dz9DgjNN58CK/img.png)
