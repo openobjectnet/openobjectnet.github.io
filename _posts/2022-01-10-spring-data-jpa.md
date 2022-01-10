@@ -42,7 +42,7 @@ p6spy 라이브러리 버전만 알맞게 변경해주시면 될 것 같습니�
 IntelliJ는 들어가자마자 자동으로 Gradle Dependency를 스캔하는데   
 VSCODE의 경우 안된다면 Gradle 확장팩 플러그인을 설치 후에 따로 빌드해야 합니다.   
 
-    ```
+    ```gradle
     plugins {
         id ‘org.springframework.boot’ version ‘2.2.1.RELEASE’
         id ‘io.spring.dependency-management’ version ‘1.0.8.RELEASE’
