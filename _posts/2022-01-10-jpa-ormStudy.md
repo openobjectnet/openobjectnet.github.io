@@ -28,72 +28,71 @@ author: 이효진
 <br>
 
 
-  >  엔티티의 생명주기
+>  엔티티의 생명주기
 
-  1. 비영속
-       - jpa와 상관이 없는 상태
-  
-        ```java
-        Member member = new Member();
-        member.setName("member1");
-        member.setAge(20);
-        ```
-  
-  2. 영속
-       -    객체가 EntityManager에 의해 관리되는 상태
-        ```
-           EntityManeger.persist(member);
-        ````
-  
-  3. 준영속
-        - 객체와 영속성 컨텍스트를 분리
-        - detech(), clear(), close() 사용
-  4. 삭제
-        - 객체를 삭제
-        - remove() 사용
+1. 비영속
+    - jpa와 상관이 없는 상태
 
-        <br>
+    ```java
+    Member member = new Member();
+    member.setName("member1");
+    member.setAge(20);
+    ```
+
+2. 영속
+    -    객체가 EntityManager에 의해 관리되는 상태
+    ```java
+        EntityManeger.persist(member);
+    ```
+
+3. 준영속
+    - 객체와 영속성 컨텍스트를 분리
+    - detech(), clear(), close() 사용
+4. 삭제
+    - 객체를 삭제
+    - remove() 사용
     >  영속성 컨텍스트의 이점
     1. 1차 캐시
-   
-        ![영속성컨텍스트](https://github.com/namjunemy/TIL/blob/master/Jpa/inflearn/img/03_persistence_context_cache.PNG?raw=true)
+    
+    ![영속성컨텍스트](https://github.com/namjunemy/TIL/blob/master/Jpa/inflearn/img/03_persistence_context_cache.PNG?raw=true)
 
-        ```java
-        em.persist(member); //1차캐시에 저장
-        em.find(Member.class,member.getId);  //1차 캐시에서 조회
-        ```
+    ```java
+    em.persist(member); //1차캐시에 저장
+    em.find(Member.class,member.getId);  //1차 캐시에서 조회
+    ```
     2. 동일성 보장
-   
-        ```java
-        Member member1 = em.find(Member.class,"id1");
-        Member member2 = em.find(Member.class,"id1");
+            
+    ```java
+    Member member1 = em.find(Member.class,"id1");
+    Member member2 = em.find(Member.class,"id1");
 
-        member1 == member2 // true
-        ```
+    member1 == member2 // true
+    ```
 
     3. 쓰기 지연
-        ```java
-        transaction.begin();
 
-        em.persist(Member1);
-        em.persist(Member2);
+    ```java
+    transaction.begin();
 
-        transaction.commit(); //이때 db에 저장된다.
-        ```
+    em.persist(Member1);
+    em.persist(Member2);
+
+    transaction.commit(); //이때 db에 저장된다.
+    ```
 
     4. 변경감지
-   
-        ```java
-        transaction.begin();
 
-        Member member = em.find(Member.class,"memberA");
-        member.setName("newName");
+    ```java
+    transaction.begin();
 
-        transaction.commit();
+    Member member = em.find(Member.class,"memberA");
+    member.setName("newName");
 
-        ```
+    transaction.commit();
 
-        ![영속성컨텍스트](https://blog.kakaocdn.net/dn/dG1iTX/btqFa7GzKP5/tCELwKVoc1dz9DgjNN58CK/img.png)
+    ```
+
+    ![영속성컨텍스트](https://blog.kakaocdn.net/dn/dG1iTX/btqFa7GzKP5/tCELwKVoc1dz9DgjNN58CK/img.png)
      
 
 # 2.엔티티 매핑
