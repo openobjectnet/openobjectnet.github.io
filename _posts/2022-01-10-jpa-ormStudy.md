@@ -1,16 +1,14 @@
-
-
 ---
-title:  "ORM표준 JPA 프로그래밍 정리"
-search: false
-categories: 
-  - JPA
-toc: true  
-last_modified_at: 2022-01-07T10:06:00-05:00
-tags:
-  - JPA
-  - Spring Boot
-author: 이효진
+    title:  "ORM표준 JPA 프로그래밍 정리"
+    search: false
+    categories: 
+        - JPA
+    toc: true  
+    last_modified_at: 2022-01-07T10:06:00-05:00
+    tags:
+      - JPA
+      - Spring Boot
+    author: 이효진
 ---
 
 
