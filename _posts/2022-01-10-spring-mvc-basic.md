@@ -181,7 +181,7 @@ author: 이승효
 
 ##### build.gradle
 
-```
+```gradle
 plugins {
     id 'org.springframework.boot' version '2.4.3'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
@@ -216,7 +216,7 @@ test {
 스프링 부트는 서블릿을 직접 등록해서 사용할 수 있도록 @ServletComponentScan 을 지원한다. 다음과
 같이 추가하자
 
-```
+```java
 package hello.servlet;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -234,7 +234,7 @@ public class ServletApplication {
 
 ### 서블릿 등록하기
 
-```
+```java
 @WebServlet(name = "helloServlet", urlPatterns = "/hello")
 public class HelloServlet extends HttpServlet {
 
@@ -262,17 +262,17 @@ public class HelloServlet extends HttpServlet {
 - urlPatterns: URL 매핑
 
 HTTP 요청을 통해 매핑된 <U>URL이 호출</U>되면 서블릿 컨테이너는 다음 메서드를 실행한다.
-
-    protected void service(HttpServletRequest request, HttpServletResponse response)
-
+```java
+protected void service(HttpServletRequest request, HttpServletResponse response)
+```
 localhost:8080/hello?username=world 호출 시
 콘솔 실행결과
-
-    HelloServlet.service
-    request = org.apache.catalina.connector.RequestFacade@5e4e72
-    response = org.apache.catalina.connector.ResponseFacade@37d112b6
-    username = world
-
+```java
+HelloServlet.service
+request = org.apache.catalina.connector.RequestFacade@5e4e72
+response = org.apache.catalina.connector.ResponseFacade@37d112b6
+username = world
+```
 서블릿이 잘 동작 되는 것을 확인하였고, 브라우저에 응답이 잘 나오는 것도 확인하였다.
 
 ##### HttpServletRequest 역할
@@ -282,13 +282,13 @@ HTTP 요청 메시지를 편리하게 사용할 수 있도록 개발자 대신�
 결과를 `HttpServletRequest` 객체에 담아서 제공한다
 
 ###### HTTP 요청 메시지
-
+```
     POST /save HTTP/1.1
     Host: localhost:8080
     Content-Type: application/x-www-form-urlencoded
 
     username=kim&age=20
-
+```
 - START LINE
 
   - HTTP 메소드
@@ -318,7 +318,7 @@ HttpServletRequest 객체는 추가로 여러가지 부가기능도 함께 제�
 
 ##### start-line 정보
 
-```
+```java
 //start line 정보
 private void printStartLine(HttpServletRequest request) {
     System.out.println("--- REQUEST-LINE - start ---");
@@ -353,7 +353,7 @@ request.isSecure() = false
 
 ##### 헤더 정보
 
-```
+```java
 //Header 모든 정보
 private void printHeaders(HttpServletRequest request) {
     System.out.println("--- Headers - start ---");
@@ -382,12 +382,17 @@ cache-control: max-age=0
 sec-ch-ua: "Chromium";v="88", "Google Chrome";v="88", ";Not A Brand";v="99"
 sec-ch-ua-mobile: ?0
 upgrade-insecure-requests: 1
-user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 11_2_0) AppleWebKit/537.36
+user-agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 11_2_0) AppleWebKit/537.36 
 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36
 accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/
 webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
 sec-fetch-site: none
 sec-fetch-mode: navigate
+sec-fetch-user: ?1
+sec-fetch-dest: document
+accept-encoding: gzip, deflate, br
+accept-language: ko,en-US;q=0.9,en;q=0.8,ko-KR;q=0.7
+--- Headers - end ---
 ```
 
 이 외의 쿠키 정보, 기타 정보 들도 받을 수 있다.
@@ -467,7 +472,7 @@ username=hello&username=kim 과 같이 파라미터 이름은 하나인데, 값�
 
 ##### RequestBodyStringServlet
 
-```
+```java
 
 package hello.servlet.basic.request;
 import org.springframework.util.StreamUtils;
@@ -519,7 +524,7 @@ HTTP API에서 주로 사용하는 JSON 형식으로 데이터를 전달해본�
 
 JSON 형식으로 파싱할 수 있게 객체를 하나 생성한다.
 
-```
+```java
 import lombok.Setter;
 
 @Getter @Setter
@@ -529,7 +534,7 @@ public class HelloData {
 }
 ```
 
-```
+```java
 package hello.servlet.basic.request;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -608,7 +613,7 @@ HTTP 응답 메시지는 주로 다음 내용을 담아서 전달한다.
 
 ##### HttpServletResponse - HTML 응답
 
-```
+```java
 package hello.servlet.basic.response;
 
 import javax.servlet.ServletException;
@@ -645,7 +650,7 @@ HTTP 응답으로 HTML을 반환할 때는 content-type을 text/html 로 지정�
 
 ##### HTTP 응답 데이터 - API JSON
 
-```
+```java
 package hello.servlet.basic.response;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
