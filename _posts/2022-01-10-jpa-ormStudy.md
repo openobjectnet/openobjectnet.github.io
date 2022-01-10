@@ -1,5 +1,3 @@
-
-
 ---
 title:  "ORM표준 JPA 프로그래밍 정리"
 search: false
@@ -12,9 +10,6 @@ tags:
   - Spring Boot
 author: 이효진
 ---
-
-
-
 
 # 1.영속성 컨텍스트
 <br><br>
