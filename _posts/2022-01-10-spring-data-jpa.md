@@ -186,24 +186,24 @@ Lazy 타입으로 설정시 빈 프록시 객체를 만들고 해당하는 연�
 
 ### 3-1. Member,Team의 1:N관계 코드
 
-    ```java
-    @Entity
-    @Getter @Setter  
-    @NoArgsConstructor(access = AccessLevel.PROTECTED) 
-    @ToString(of = {"id", "username", "age"}) 
-    public class Member {
-        @Id
-        @GeneratedValue
-        @Column(name = "member_id")
-        private Long id;
-        private String username;
-        private int age;
+```java
+@Entity
+@Getter @Setter  
+@NoArgsConstructor(access = AccessLevel.PROTECTED) 
+@ToString(of = {"id", "username", "age"}) 
+public class Member {
+    @Id
+    @GeneratedValue
+    @Column(name = "member_id")
+    private Long id;
+    private String username;
+    private int age;
 
-        @ManyToOne(fetch = FetchType.LAZY) //기본적으로 LAZY 타입(지연로딩) 방식을 사용해야 한다.
-        @JoinColumn(name = "team_id")
-        private Team team;  //지연로딩시 team에는 빈 프록시객체가 담겨있다. 
-    }
-    ```
+    @ManyToOne(fetch = FetchType.LAZY) //기본적으로 LAZY 타입(지연로딩) 방식을 사용해야 한다.
+    @JoinColumn(name = "team_id")
+    private Team team;  //지연로딩시 team에는 빈 프록시객체가 담겨있다. 
+}
+```
 > 만약에 연관관계필드도 모두 조회되길 원한다면   
 > 타입으로 Eager로 바꾸는게 아니라   
 > Fetch 조인으로 원하는 연관관계의 정보만 추가로 가져옵니다.   
@@ -212,10 +212,10 @@ Lazy 타입으로 설정시 빈 프록시 객체를 만들고 해당하는 연�
 일반적인 조인에서는 메인이 되는 테이블만 영속 시켜 연관관계 필드는 지연로딩되지만   
 패치조인의 경우 연관관계 필드도 함께 영속상태로 만들어 바로 조회되도록합니다.    
 
-    ```java
-    @Query("SELECT distinct t FROM Team t join fetch t.members")
-    public List<Team> findAllWithMemberUsingFetchJoin();
-    ```
+```java
+@Query("SELECT distinct t FROM Team t join fetch t.members")
+public List<Team> findAllWithMemberUsingFetchJoin();
+```
 > 일반 조인도 연관관계필드를 조회하는 것이 아닌 
 > 연관관계만 이용할 것이라면 사용해야합니다.
 > ex) Team 이름이 '웹서버개발'로 시작하는 팀의 멤버만 조회하시오.
@@ -379,20 +379,20 @@ readOnly는 더티체킹을 안한다고합니다...?
 
 DTO는 다음과 같은 생성자가 일치하는 DTO가 필요하다.   
 
-    ```java
-    import lombok.Data;
-    @Data
-    public class MemberDto {
-        private Long id;
-        private String username;
-        private String teamName;
-        public MemberDto(Long id, String username, String teamName) {
-            this.id = id;
-            this.username = username;
-            this.teamName = teamName;
-        }
+```java
+import lombok.Data;
+@Data
+public class MemberDto {
+    private Long id;
+    private String username;
+    private String teamName;
+    public MemberDto(Long id, String username, String teamName) {
+        this.id = id;
+        this.username = username;
+        this.teamName = teamName;
     }
-    ```
+}
+```
 
 
 ### 5-2. Projections
