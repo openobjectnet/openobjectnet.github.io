@@ -1,5 +1,5 @@
 ---
-title: "김영한 SpringMVC 기초(web, was, servler, http request&response) "
+title: "김영한 SpringMVC 기초(web, was, servler, http request&response)"
 search: false
 categories:
   - springMVC
@@ -13,6 +13,7 @@ tags:
 author: 이승효
 ---
 
+# Intro
 안녕하세요. 오픈오브젝트 이승효입니다.<br>
 인프런 스프링 MVC 강의를 듣고 알게 된 점을 공유합니다.
 
