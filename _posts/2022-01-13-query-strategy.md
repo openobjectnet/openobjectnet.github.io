@@ -70,7 +70,7 @@ author: 최세훈
 - Only Sort
 
 ```java
-    query.orderBy(rentAssetQ.rentDt.asc(), rentAssetQ.assetSeq.assetSeq.desc());
+    query.orderBy(rentAssetQ.rentDt.asc(), rentAssetQ.assetSeq.desc());
 ```
 
 - Projection
@@ -101,7 +101,7 @@ author: 최세훈
 		  , eqAssetItemCode(param.getAssetItemCode())
 		  , eqApplyState(param.getApplyStateCode())
 		  , eqUser(param.getUserSeqList()));
-	query.orderBy(rentAssetQ.rentDt.asc(), rentAssetQ.assetSeq.assetSeq.asc());
+	query.orderBy(rentAssetQ.rentDt.asc(), rentAssetQ.assetSeq.asc());
 ```
 
 ### JPQL 예시
