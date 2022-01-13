@@ -103,3 +103,36 @@ author: 최세훈
 		  , eqUser(param.getUserSeqList()));
 	query.orderBy(rentAssetQ.rentDt.asc(), rentAssetQ.assetSeq.assetSeq.asc());
 ```
+
+### JPQL 예시
+
+```java
+    @Query(
+        "select bk \n" +
+        "from Bookmark bk \n" +
+        "where bk.userLogin= :userLogin and bk.type= :type and bk.isBookmark=0 \n" +
+        "and (bk.isDeleted is null or bk.isDeleted = 0) \n" +
+        "group by bk.itemId \n" +
+        "order by bk.useTime desc"
+    )
+    List<Bookmark> findFirst10RecentUseByUserLoginAndType(@Param("userLogin") String userLogin, @Param("type") ItemType type);
+```
+
+```java
+    @Query(
+        "select channel.id as channelId, channel.userLogin as senderLogin, userInChannel.userLogin as toUserLogin \n" +
+        "from Channel channel left join UserInChannel userInChannel \n" +
+        "on (channel.id = userInChannel.channelId \n" +
+        "  and (userInChannel.isDeleted is null or userInChannel.isDeleted= 0)) \n" +
+        "where channel.workspaceId= :workspaceId \n" +
+        "and (channel.isDirect is not null and channel.isDirect <> 0) \n" +
+        "and ((channel.userLogin= :userLogin and userInChannel.userLogin= :channelUser) \n" +
+        "  or (channel.userLogin= :channelUser and userInChannel.userLogin= :userLogin)) \n"
+    )
+    List<DirectChannelView> findAllByWorkspaceIdAndUserLoginAndChannelUser(
+        @Param("workspaceId") Long workspaceId,
+        @Param("userLogin") String userLogin,
+        @Param("channelUser") String channelUser
+    );
+
+```
