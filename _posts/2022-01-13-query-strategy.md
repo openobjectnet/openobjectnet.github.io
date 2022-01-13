@@ -50,11 +50,15 @@ author: 최세훈
 - Join
 
 ```java
-    JPQLQuery<RentApplication> query = from(applicationQ);
-    query.innerJoin(applicationQ.piSeq, projectQ).fetchJoin();
-    query.where(applicationQ.showYn.eq(CommonYNEnum.Y)
-            , eqPjNm(param.getPjName()), eqPjPlace(param.getPjPlace())
-    query.orderBy(applicationQ.regDt.desc());
+  QFaq boFaq = QFaq.faq;
+  QBackOfficeUser boRegUser = QBackOfficeUser.backOfficeUser;
+  QCommonCode commonCode = QCommonCode.commonCode;
+
+  JPQLQuery<Faq> query = from(boFaq);
+  query.leftJoin(boRegUser).on(boRegUser.userSeq.eq(boFaq.regUserSeq))
+    .leftJoin(commonCode).on(boFaq.faqCtgryGrpCd.eq(commonCode.ccVal))
+    .where(boFaq.faqTitle.like("%" + faqSearchRequest.getSearchText() + "%"))
+    .fetchJoin();
 ```
 
 - Pageable & Sort
