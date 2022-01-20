@@ -87,6 +87,7 @@ entityManager.persist(a);
 System.out.println("a product id : " + a.getProductId());
 entityManager.persist(b);
 System.out.println("b product id : " + b.getProductId());
+a.setPrice(300);
 System.out.println("///////////////////");
 
 transaction.commit();
@@ -113,9 +114,55 @@ Hibernate:
             (null, ?, ?)
 b product id : 2
 ///////////////////
+Hibername:
+    update
+            product 
+        set
+            price=?,
+            product_name=? 
+        where
+            product_id=?
 ```
 
 정상적으로 productId 값이 출력되었다.
+
+
+### IDENTITY 전략에서 persist() 이후 트랜잭션 commit() 이전에 예외가 발생하면?
+
+트랜잭션이 커밋되기 전에 쿼리를 실행하는 IDENTITY 전략에서도 insert 쿼리 직후 예외가 발생하면 트랜잭션이 롤백됩니다.
+
+
+```java
+transaction.begin();
+
+Product a = new Product("A", 1000);
+Product b = new Product("B", 2000);
+
+System.out.println("///////////////////");
+entityManager.persist(a);
+System.out.println("a product id : " + a.getProductId());
+entityManager.persist(b);
+System.out.println("b product id : " + b.getProductId());
+a.setPrice(300);
+System.out.println("///////////////////");
+
+if (true) throw new RuntimeException(); // 예외 발생
+
+transaction.commit();
+```
+
+그러나 INSERT시에 AUTO_INCREMENT 에 의해 1,2라는 값이 DB로부터 이미 생성되었기 때문에, MySQL에서 다음 Insert시에는 2 이후의 값을 할당합니다.
+
+### 실행 결과
+
+{% capture productSelectResult %}
+![Foo]({{ "/assets/images/generationTypePost/productSelect.png" |relative_url }})
+{% endcapture %}
+
+<figure>
+    {{ productSelectResult | markdownify | remove: "<p>" | remove: "</p>" }}
+</figure>
+
 
 ### 결론
 
