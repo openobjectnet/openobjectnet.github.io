@@ -33,6 +33,7 @@ public interface DiscountPolicy {
 	int discount(Member member, int price);
 }
 ```
+먼저 할인 정책 인터페이스를 만들고
 
 ## 1000원 할인 구현체(구현)
 ```java
@@ -51,6 +52,7 @@ public class FixDiscountPolicy implements DiscountPolicy {
 	}
 }
 ```
+이를 구현하는 1000원 할인 구현체와 10%할인 구현체를 만들어 줍니다.
 
 ## 10% 할인 구현체(구현)
 ```java
@@ -91,6 +93,7 @@ public class OrderServiceImpl implements OrderService {
 	}
  }
 ```
+만들어진 구현체를 사용해 할인을 적용 시켜줍니다.
 
 ### 새로운 할인 정책 적용
 ```java
@@ -126,11 +129,11 @@ public class OrderServiceImpl implements OrderService {
 
 }
 ```
-DIP와 OCP를 지키기 위해선 DiscountPolicy 인터페이스만 의존해야 하는데 이 문제를 해결하려면 `OrderServiceImpl`에 `DiscountPolicy`의 구현 객체를 대신 생성하고 주입해 주어야 한다.
+DIP와 OCP를 지키기 위해선 DiscountPolicy 인터페이스만 의존해야 하는데 이 문제를 해결하려면 `DiscountPolicy`의 구현 객체를 대신 생성하고 주입해 주어야 한다.
 
 ## 관심사의 분리
 ### AppConfig 등장
-애플리케이션 전체 동작 방식을 구성(config) 하기 위해, <b>'구현 객체를 생성'</b>하고, <b>연결</b>하는 책임을 가지는 별도의 설정 클래스를 만들어보자.
+구현 객체를 대신 생성하고 주입해 주기 위한 책임을 가지는 AppConfig 클래스를 만들어 봅니다.
 ```java
 public class AppConfig {
 
@@ -139,13 +142,13 @@ public class AppConfig {
 	}
 
 	public DiscountPolicy discountPolicy() {
-        return new FixDiscountPolicy();
-        // return new RateDiscountPolicy();
-    }
+        	return new FixDiscountPolicy();
+       	 	// return new RateDiscountPolicy();
+    	}
 
 	public MemberRepository memberRepository() {
-        return new MemoryMemberRepository();
-    }
+        	return new MemoryMemberRepository();
+    	}
 }
 
 ```
@@ -169,9 +172,8 @@ public class OrderServiceImpl implements OrderService {
     }
 }
 ```
-AppConfig는 애플리케이션 실제 동작에 <b>필요한 구현 객체를 생성</b>한다.
-할인 정책에 관한 DiscountPolicy를 생성자 주입을 통해 넣어주면 DIP와 OCP위반 문제가 해결된다.
-
+AppConfig에서 실제 동작에 필요한 구현 객체를 생성해서 할인 정책에 관한 구현체를 
+생성자 주입을 통해 넣어 주면 DIP와 OCP위반 문제가 해결됩니다.
 
 AppConfig 객체는 `FixDiscountPolicy` 객체를 생성하고 그 참조 값을 `OrderServiceImpl`을 생성하면서
 생성자로 전달한다.
