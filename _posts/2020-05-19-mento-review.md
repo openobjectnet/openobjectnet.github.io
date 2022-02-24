@@ -6,7 +6,7 @@ categories:
 tags:
   - Mentoring
 toc: true
-toc_label: "시기별"
+toc_label: "웹서버개발 멘토링"
 toc_sticky: true
 author: 웹서버 개발자
 ---

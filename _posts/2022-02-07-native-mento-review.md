@@ -6,7 +6,7 @@ categories:
 tags:
   - Mentoring
 toc: true
-toc_label: "시기별"
+toc_label: "네이티브개발 멘토링"
 toc_sticky: true
 author: 네이티브 개발자   
 ---
