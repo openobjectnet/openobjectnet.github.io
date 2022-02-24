@@ -7,6 +7,7 @@ tags:
   - Mentoring
 toc: true
 toc_label: "시기별"
+toc_sticky: true
 author: 웹서버 개발자
 ---
 > 회사에 신입사원에 대한 멘토링 제도가 도입되었다.   
