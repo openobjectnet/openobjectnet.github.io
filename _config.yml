@@ -94,9 +94,9 @@ analytics:
 # Site Author
 author:
   name             : "오픈오브젝트"
-  avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
+  avatar           : "/assets/images/openobject-log.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "사내 기술 블로그"
-  location         : "Somewhere"
+  location         : "Seoul, Republic of Korea"
   email            :
   links:
     - label: "Email"
@@ -104,7 +104,7 @@ author:
       # url: mailto:your.name@email.com
     - label: "Website"
       icon: "fas fa-fw fa-link"
-      # url: "https://your-website.com"
+      url: "http://www.openobject.net/"
     - label: "Twitter"
       icon: "fab fa-fw fa-twitter-square"
       # url: "https://twitter.com/"
@@ -113,7 +113,7 @@ author:
       # url: "https://facebook.com/"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      # url: "https://github.com/"
+      url: "https://github.com/openobjectnet"
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
       # url: "https://instagram.com/"
