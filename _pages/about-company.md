@@ -1,17 +1,6 @@
 ---
 permalink: /aboutCompany/
 title: "About OpenObject"
-# excerpt: "Minimal Mistakes is a flexible two-column Jekyll theme."
-# layouts_gallery:
-#   - url: /assets/images/mm-layout-splash.png
-#     image_path: /assets/images/mm-layout-splash.png
-#     alt: "splash layout example"
-#   - url: /assets/images/mm-layout-single-meta.png
-#     image_path: /assets/images/mm-layout-single-meta.png
-#     alt: "single layout with comments and related posts"
-#   - url: /assets/images/mm-layout-archive.png
-#     image_path: /assets/images/mm-layout-archive.png
-#     alt: "archive layout example"
 last_modified_at: 2020-03-23T14:07:54-04:00
 toc: false
 ---
@@ -34,6 +23,45 @@ toc: false
 |업종|소프트웨어 개발 및 서비스|
 |주요사업|Fintech, IoT 플랫폼, AI 및 Automation, SI 등|
 |사업장|서울 구로구 디지털로 288, 13층 1306호|
+
+
+## project history
+
+#### 2021
+
+- NH농협카드 (은행)카드고객행복센터 디지털 ARS 구축
+- 삼성전자 서빙 로봇 운용/연동 Application 개발(Use case 구현)
+- 신한카드 마이데이터 구축_마이데이터 서비스영역 구축
+- 신한카드 신한카드 PayFAN 리부트 프로젝트
+- 롯데카드 롯데카드 모바일 앱 리뉴얼 개발
+- 현대카드 DIVE 신규 스페이스 예약시스템 개발
+- 롯데카드 롯데카드 오픈뱅킹 시스템 구축 개발
+- 삼성 SDK 구찌 디지털 가이드 구축 프로젝트
+- NH농협카드 NH PAY 리브랜딩 및 결제수단 고도화
+- 신한카드 그룹 통합 Pay 선불 개발
+- NH농협카드 인공지능기반 챗봇 시스템 도입
+- NH농협카드 NH카드 및 G-PASS 운영도급
+- 현대카드 DIVE 앱 리워드 스킴, 아카이빙 기능 개발
+- NH농협카드 (은행)개인카드 홈페이지 구축
+- 현대오토에버 현대건설 모바일 사원증 구축
+
+
+#### 2016
+
+- NH농협카드 Allone PAY 앱카드 리뉴얼
+- KB국민카드 통합 모바일 플랫폼 구축 외 다수
+
+#### 2015
+
+- 스마트앱 어워드 스마트앱 최고 대상
+- 현대카드 금융 ATM 서비스 신규 개발
+- 신한카드 스마트워치 대응 개발 외 다수
+
+#### 2014
+
+- 현대카드 Mobile eXperience 프로젝트
+- 신한카드 Smart 월렛 올댓쇼핑 모바일 구출
+- 하나카드 모바일카드 발급시스템 구축
 
 
 ## company welfare

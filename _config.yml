@@ -96,7 +96,7 @@ author:
   name             : "오픈오브젝트"
   avatar           : "/assets/images/openobject-log.jpg" # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
   bio              : "사내 기술 블로그"
-  location         : "Seoul, Republic of Korea"
+  location         : "Seoul, Korea"
   email            :
   links:
     - label: "Email"
