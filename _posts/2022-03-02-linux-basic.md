@@ -6,7 +6,7 @@ categories:
 toc: true  
 tags:
   - linux
-author: 오유민
+author: 오유민 
 ---
 
 # Intro
