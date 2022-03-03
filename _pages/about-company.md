@@ -83,6 +83,56 @@ toc: false
 - 신한카드 Smart 월렛 올댓쇼핑 모바일 구출
 - 하나카드 모바일카드 발급시스템 구축
 
+## company partners
+
+{% capture sap-logo %}
+![Foo]({{ "/assets/images/about/cont3_logo1.png" |relative_url }})
+{% endcapture %}
+
+{% capture hana-logo %}
+![Foo]({{ "/assets/images/about/logo_hana.png" |relative_url }})
+{% endcapture %}
+
+{% capture bc-logo %}
+![Foo]({{ "/assets/images/about/logo_bc.png" |relative_url }})
+{% endcapture %}
+
+{% capture hyundai-logo %}
+![Foo]({{ "/assets/images/about/logo_hyundai.png" |relative_url }})
+{% endcapture %}
+
+{% capture kb-logo %}
+![Foo]({{ "/assets/images/about/logo_kb.png" |relative_url }})
+{% endcapture %}
+
+{% capture lotte-logo %}
+![Foo]({{ "/assets/images/about/logo_lotte.png" |relative_url }})
+{% endcapture %}
+
+{% capture nh-logo %}
+![Foo]({{ "/assets/images/about/logo_nh.png" |relative_url }})
+{% endcapture %}
+
+{% capture seoulmatro-logo %}
+![Foo]({{ "/assets/images/about/logo_public1.png" |relative_url }})
+{% endcapture %}
+
+{% capture health-logo %}
+![Foo]({{ "/assets/images/about/logo_public2.png" |relative_url }})
+{% endcapture %}
+
+{% capture nationalhealth-logo %}
+![Foo]({{ "/assets/images/about/logo_public3.png" |relative_url }})
+{% endcapture %}
+
+|{{hana-logo|markdownify|remove:"<p>"|remove:"</p>"}}|{{bc-logo|markdownify|remove:"<p>"|remove:"</p>"}}|{{hyundai-logo|markdownify|remove:"<p>"|remove:"</p>"}}|{{kb-logo|markdownify|remove:"<p>"|remove:"</p>"}}|{{lotte-logo|markdownify|remove:"<p>"|remove:"</p>"}}|{{nh-logo|markdownify|remove:"<p>"|remove:"</p>"}}|
+
+## company partners - public institutions
+<center>
+| {{seoulmatro-logo|markdownify|remove:"<p>"|remove:"</p>"}} | {{health-logo|markdownify|remove:"<p>"|remove:"</p>"}} | {{nationalhealth-logo|markdownify|remove:"<p>"|remove:"</p>"}} |
+</center>
+
+
 
 ## company welfare
 
