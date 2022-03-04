@@ -2,10 +2,10 @@
 title:  "실전 Spring data JPA"
 search: false
 categories: 
-  - jpa
+  - JPA
 toc: true  
 tags:
-  - jpa
+  - JPA
 author: 이승효
 ---
 
