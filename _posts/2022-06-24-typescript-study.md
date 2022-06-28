@@ -1,5 +1,5 @@
 ---
-title:  "타입스크립트 퀵스타트"
+title:  "타입스크립트 클래스와 인터페이스"
 search: false
 categories: 
   - TypeScript
@@ -10,7 +10,7 @@ tags:
   - JavaScript
 ---
 
-# Type Script Study
+# 클래스와 인터페이스
 ## Intro
 안녕하세요. 전제 사원입니다.     
 회현 사무실에 있는 타입스크립트 퀵스타트 교재 공부하면서 정리한 내용입니다.
@@ -310,6 +310,7 @@ wildGoose.getHabitat();
 <기러기> 의 서식지는 <순천만 갈대밭> 입니다.
 ```
 예제는 추상 클래스에 공통 기능을 담은 구현 메서드를 추가하고 추상 메서드는 자식 클래스가 상속해 구현합니다 .이때 추상 클래스에서는 추상 메서드를 호출하는 방식으로 구현하며, 추상 메서드의 실제 동작은 구현 클래스에 추가한 구현 메서드를 통해 이뤄집니다.
+<hr>
 
 ## 2. 인터페이스에 대한 이해
 ### 2-1. 인터페이스 소개
@@ -420,6 +421,7 @@ let format: Iformat = function (data: string, toUpper: boolean) {}
 ```
 
 위 코드에서 format 변수는 익명 함수를 할당받고 있으며 익명 함수의 타입으로 인터페이스인 IFormat 을 선언했습니다. 이때 눈여겨볼 점은 함수 타입의 매개변수 이름은 정확히 일치하지 않아도 된다는 점입니다.
+<hr>
 
 ## 3. 클래스와 인터페이스의 활용
 ### 3-1. 오버라이딩으로 메서드를 재정의하기
@@ -591,15 +593,185 @@ display1 메서드는 여러 클래스 타입을 받고 instanceof를 통해 타
 displayTest.display1(new Led("LED TV"));
 displayTest.display1(new Oled("Oled TV"));
 ```
-문제는 유니언 타입에 클래스가 하나 추가됐을 떄입니다. class 추가에 조건검사를 위한 else if가 추가되어야 하기 때문입니다.
+문제는 유니언 타입에 클래스가 하나 추가됐을 때입니다. class 추가에 조건검사를 위한 else if가 추가되어야 하기 때문입니다.
 
 클래스 타입이 추가될 때마다 type alias도 else if 문을 매번 업데이트 해줘야 하기 때문에 type alias를 도입하는 것은 근본적인 해결책이 될 수 없습니다. 인터페이스를 이용해 다형성을 구현해 줄 필요가 있다.
 
 #### 3-3-5. 매개변수의 다형성(인터페이스 타입 이용)
-메서드의 매개변수 타입을 이용함으로써 객체가 다형성의 성질을 띄우도록 만들 수 있습니다.
-<hr>
+메서드의 매개변수 타입을 이용함으로써 객체가 다형성의 성질을 띄우도록 만들 수 있습니다.  
+인터페이스를 이용한 다형성의 핵심은 인터페이스는 해당 인터페이스를 상속받는 여러 클래스 타입들을 받을 수 있다는 점입니다.
 
-## 모듈
-## 비동기 처리
-## 서드파티 라이브러리와 타입 정의 파일
- 
+- 구현 클래스의 타입은 인터페이스 타입으로 타입 호환이 됩니다. 이 떄문에 유니언 타입 대신 인터페이스를 이용하면 됩니다.
+- 인터페이스를 적용하면 instanceof 검사도 필요 없게 됩니다.
+- 인터페이스를 통해 객체에 접근하기 때문에 instanceof로 타입 검사를 하지 않아도 타입 안전성이 보장됩니다.
+
+### 3-4. 클래스에서 getter와 setter
+자바스크립트에서 객체의 멤버에 접근할 수 있는 방법으로 getter와 setter를 지원합니다. getter는 일반적으로 접근자라 하고 setter는 설정자라 합니다. 자바스크립트 es5에서 접근자와 설정자는 보통 객체 리터럴에 추가해 사용해왔습니다.
+```js
+//js
+var obj = {
+  set name(name) {
+    this.myName = name;
+  },
+  get name() {
+    return this.myNamel
+  },
+  myName: ""
+}
+
+obj.name = "Jai"; //set
+console.log(obj.name); //get
+```
+타입스크립트에서는 클래스 내에 get 과 set 키워드를 이용해 getter와 setter를 선언할 수 있습니다.
+```ts
+// ts & no getter and setter
+class Student {
+  name: string;
+  birth: number;
+}
+
+let student = new Student();
+
+student.name = "jai";
+student.birth = 20030825;
+
+console.log(student);
+```
+
+name, birth 속성은 값 설정도 가능하지만 설정 값을 읽을 때도 사용할 수 있ㅅ브니다.
+그런데 값을 설정하거나 읽을 때 어떠한 처리를 하지 못합니다.
+
+만약 값을 설정하거나 읽을 때 로직을 추가하고 싶다면 get/set 키워드로 접근자와 설정자를 추가해줄 수 있습니다.
+
+```ts
+class Student2 {
+  private name: string;
+  private birth: number;
+
+  get name(): string {
+    return this.name;
+  }
+
+  set name(name: string) {
+    if (name.indexOf("happy") !== 0) {
+      this.name = name;
+    }
+  }
+
+  get birth(): number {
+    return this.birth;
+  }
+
+  set birth(birth: number) {
+    if(birth <= 2000) {
+      this.birth = birth;
+    }
+  }
+}
+
+let student2 = new Student2();
+
+student2.birth = 2001; //undefined
+student2.birth = 2000; //2000
+student2.name = 'happy'; //undefined
+student2.name = 'jai'; //jai
+```
+예시에서 클래스 멤버 변수는 객체를 통해 접근할 수 없도록 private로 선언돼 있습니다.
+이들 멤버 변수에 접근하려면 Get 접근자와 Set 설정자를 이용해야 합니다. Get 접근자는 name과 birth가 있습니다.
+
+컴파일 결과에서 
+```js
+Object.defineProperty(Student2.prototype, "name", {
+  get: function () {
+    return this.studentName;
+  },
+  set: function (name) {
+    if (name.indexOf("happy") !== 0) {
+      this.name = name;
+    }
+  },
+  enumerable: true,
+  configurable: true
+});
+```
+Student2 클래스는 즉시 실행 함수 형태로 변환됩니다. 변환된 코드에서 Object.defineProperty() 메서드는 객체에 새로운 속성을 정의할 때 사용하거나 이미 존재하는 객체를 수정하는 역할을 합니다.
+
+Object.defineProperty() 메서드의 첫 번째 매개변수는 속성을 정의할 객체이며, 두 번째 매개변수는 정의하거나 수정하려는 속성 이름입니다. 세 번째 매개변수는 새로 정의하거나 수정하려는 객체가 오는데, 이 곳에 get/set이 위치하게 됩니다. enumerable 속성은 객체의 키를 열거할 수 있는지에 대한 설정으로 true이면 키를 열거할 수 있다는 의미입니다.
+
+마지막으로 configurable 속성은 해당 속성의 제거 여부 설정으로 true면 특정 속성을 새롭게 정의하거나 삭제할 수도 있습니다. configurable 속성값이 true라면 속성을 새로 저으이할 수 있으므로 실행이 가능하지만 false면 실행 에러가 발생합니다.
+
+### 3-5. 정적 변수와 정적 메서드
+타입스크립트에서는 static 키워드를 지원합니다. static 키워드는 클래스에 정적 멤버 변수나 정적 메서드 등을 선언할 때 사용할 수 있는데 객체 생성 없이 접근 가능하므로 메모리 절약 효과가 있습니다.
+```ts
+class Round {
+  static pi = 3.14
+}
+```
+그러면 객체 생성 없이 클래스명으로 곧 바로 접근할 수 있습니다.
+- console.log(Round.pi); => '3.14'
+
+만약 정적 멤버 변수의 외부 접근을 차단하려면 private 접근 제한자를 붙일 수도 있습니다.
+
+#### 3-5-1. 정적 변수와 정적 메서드를 싱글톤 패턴에 적용하기
+static 키워드는 클래스에 선언된 멤버 변수를 객체 생성 없이 접근하게 해주는 장점이 있습니다.  
+static 키워드를 활용하면 클래스를 활용해 유일하게 상태 정보를 담을 수 있습니다. 이렇게 하려면 클래스의 객체 생성을 막고 클래스에 선언된 멤버를 모두 static으로 선언해 줍니다. 
+
+외부에 변수를 두면서 프로그램 단위에서 유일한 객체를 유지할 수 있게 하려면 싱글톤 패턴을 도입해야 합니다.  
+
+싱글톤 패턴은 유일한 객체를 생성해 공유해서 사용하는 방식입니다. 싱글톤 패턴의 기본적인 형태는 크게 두 가지가 있습니다.
+
+- 부지런한 초기화
+- 게으른 초기화
+
+사용하는 이유
+- 최초 한번의 new 연산자를 통해서 고정된 메모리 영역을 사용하기 때문에  메모리 낭비를 방지할 수 있습니다.
+- 다른 클래스 간에 데이터 공유가 쉽습니다. 전역으로 사용되는 인스턴스 이기 때문에 다른 클래스의 인스턴스들이 접근하여 사용할 수 있습니다.
+
+1. Eager initialization   
+가장 기본적인 싱글톤 패턴의 방식입니다. 싱글톤 객체를 미리 생성해 놓고, 공개된 정적 메서드를 통해 생성된 객체를 얻습니다.
+
+- 싱글톤 객체를 얻을 때는 new 키워드로 객체를 생성할 수 없습니다.
+
+2. Lazy initialization  
+Eager 방식과 달리 클래스가 로딩되는 시점이 아닌 클래스의 인트선스가 사용되는 시점에서 싱글톤 인스턴스를 생성합니다.
+
+- 싱글톤 객체를 얻을 때 객체의 생성 여부를 확인하여 있으면 생성 x , 없으면 생성해 싱글톤 객체가 되도록 합니다.
+
+### 3-6. readonly 제한자의 활용
+readonly가 선언된 변수는 초기화 되면 재할당이 불가능합니다.   
+readonly는 인터페이스의 멤버 변수, 클래스의 멤버 변수에 사용할 수 없습니다. 또한
+객체 리터럴 타입의 특정 속성값을 읽기 전용으로 만들 때 선언할 수 있습니다.
+```ts
+let literalObj: { readonly alias: string } = { alias: "Jai" };
+```
+
+readonly는 인터페이스나 클래스의 멤버 변수, 객체 리터럴의 속성 이름에 선언할 수 있습니다.
+
+가장 중요한 특징 중 하나는
+- 초기화를 강제하지 않습니다.
+
+그러나 어떠한 값을 할당해 변수가 초기화 되면 재할당이 불가능합니다. 이는 클래스 멤버 변수, 객체 리터럴의 속성에서도 동일하게 적용됩니다. 객체 리터럴의 타입이 지정됐고 객체 리터럴의 속성에 readonly가 선언돼 있다면 해당 속성에 어떠한 값도 재할당할 수 없습니다.
+
+#### 3-6-1. readonly 특성이 사라지도록 aliasing 하기
+readonly는 객체 리터럴 타입의 속성을 고정하는 데 사용할 수 있습니다.
+
+```ts
+let emotion: { readonly name: string } = { name: "jai" }
+```
+emotion 변수에 객체 리터럴이 할당됐고, 할당된 객체 리터럴의 name 속성은 타입 선언 시 readonly로 선언돼 읽기 전용 속성으로 고정됐습니다.
+
+그런데 readonly 특성을 제거할 수 있는 방법이 있습니다. 타입에 새로운 별칭을 부여하기 위해 type aliasing을 하면 됩니다.
+
+```ts
+type emotionType = { name: string };
+```
+위와 같이 선언하면 { readonly name: string } 타입이 { name: string } 타입으로 aliasing 되며 name 속성에 값 할당이 가능해집니다.
+```ts
+let myEmotion: emotionType = emotion;
+```
+
+함수로 전달할 객체 리터럴은 매개변수를 통해 곧바로 type aliasing할 수도 있습니다.
+
+# 클래스와 인터페이스 끝
+
+<hr>
