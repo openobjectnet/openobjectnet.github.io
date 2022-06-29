@@ -16,6 +16,11 @@ toc_label: "목차"
 toc_sticky: true
 author: 민홍기
 ---
+# 시작하기에 앞서
+해당 문서는 아직 최적화가 이루어 지지 않았습니다.   
+읽기 불편할 수도 있으며 이상한 문맥과 맞춤법이 당신을 불편하게 할 수도 있습니다.
+
+
 # Typescript 왜?
 
 # 1-1. Javascript
@@ -129,7 +134,8 @@ Typescript에는 여러가지 타입이 있는데 그중 흥미로운 몇가지�
   //'age' 속성이 '{ name: string; }' 형식에 없지만 '{ name: string; age: number; }' 형식에서 필수입니다.ts(2741)
   ```
   B가 A의 부분 집합이라면 참이 되는 구조   
-  **주의**ob1에 ob2가 할당되었다고 해서 ob2에 있는 age가 없어지는 것은 아닙니다!
+  > **주의**   
+  > ob1에 ob2가 할당되었다고 해서 ob2에 있는 age가 없어지는 것은 아닙니다!   
 
 - 유니언 타입   
   유니언 타입은 하나의 변수에 2가지 타입이 들어올 수 있는 경우에 사용되는 타입으로 기본적으로 2가지 타입의 교집합으로 정의 됩니다.   
@@ -145,6 +151,7 @@ Typescript에는 여러가지 타입이 있는데 그중 흥미로운 몇가지�
   ob.age
   //'{ name: string; }' 형식에 'age' 속성이 없습니다.ts(2339)
 
+  //해당 함수는 타입 가드라는 표현식으로 뒤에서 다룰 예정입니다.
   function check(ob: { name: string; age?: number; }): ob is { name: string; age: number } {
     return ob.age ? true : false;
   }
@@ -177,7 +184,7 @@ Typescript에는 여러가지 타입이 있는데 그중 흥미로운 몇가지�
   그렇기 때문에 Typescript의 타입의 의미를 퇴색시키고 타입 추론을 어렵게 합니다.   
   금단의 흑마술서 같은 친구니 봉인해 두시기를 바랍니다.   
   > **tip**   
-  > 가끔 보면 함수의 반환 타입을 알 수 없거나 해당 타입을 사용할 수 없는 경우가 있습니다. (ex setTimeout의 Node.Timeout)   
+  > 가끔 보면 함수의 반환 타입을 알 수 없거나 해당 타입을 사용할 수 없는 경우가 있습니다. (ex setTimeout의 NodeJS.Timeout)   
   > 그럴때는 typeof연산자를 사용하시는 것을 추천합니다. 가져올 수 없는 타입도 추론이 가능해지고 나중에 반환 타입이 추가되거나 바뀌었을 때에 바뀐 타입으로 추론이 가능하기 때문입니다.
 
 # 2-2. 타입 추론
@@ -189,4 +196,5 @@ let num: number = 0;
  //error    Type number trivially inferred from a number literal, remove type annotation  @typescript-eslint/no-inferrable-types
 ```
 하지만 함수의 경우는 오히려 타입 단언을 지정하는 것을 권장합니다.   
-그 이유는 사용자가 작성하는 부분 때문입니다.
+그 이유는 변수에는 값을 넣고 그 값을 활용하는 것이 주된 목적인 반면 함수는 어떠한 작동을 거쳐 원하는 값을 반환하는 것이 주 목적입니다.
+그렇기에 변수는 값에 타입을 맞추고 함수는 반환 타입에 값을 맞춰야 합니다.
