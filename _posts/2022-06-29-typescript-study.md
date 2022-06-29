@@ -4,10 +4,12 @@ search: false
 categories: 
   - TypeScript
 toc: true  
-last_modified_at: 2022-06-27T08:06:00-05:00
+last_modified_at: 2022-06-29T18:06:00-05:00
 tags:
   - TypeScript
   - JavaScript
+  - Class
+  - Interface
 ---
 
 # 클래스와 인터페이스
