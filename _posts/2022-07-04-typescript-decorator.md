@@ -404,7 +404,93 @@ Class decorator 입니다.
 
 <hr>
 
+## 자바 어노테이션과의 다른점 (Annotation)
+문법적으로 봤을 때 java의 annotation과 큰 차이는 없습니다. 다만 차이점이 있다면  
+decorator는 runtime에서만 역할을 한다는 점 입니다. 
+
+java의 annotation은 Retention이라는 게 있어 compiler에게만 보이고, runtime에는 없어지게 하거나 runtime에도 살아남아서 jvm에 의해 참조할 수 있게 할수도 있습니다.
+
+- @Retention : 어느 시점까지 어노테이션의 메모리를 가져갈 지 설정합니다.
+    - 쉽게 얘기하면 어디까지 타입을 보유할지 설정
+- Jvm (Java Virtual Machine) : Java 컴파일러가 bytecode로 변환한 것을 os가 이해해줄 수 있도록 해석해주는 것
+
+typescript에서는 정적인 타입이 없기 떄문에 애초에 compile time에 기능을 할 수 없습니다. 이런 측면에서 runtime에서만 활용할 수 있는 annotation이라고 볼 수 있습니다.
+
+- Compile Time : 개발자에 의해 작성된 소스코드를 컴퓨터가 인식할 수 있는 기계어 코드로 변환되어 실행 가능한 프로그램이 되는 과정을 의미
+- Run Time : 컴파일 과정을 마친 응용 프로그램이 사용자에 의해서 실행되는 때을 의미
+
+<hr>
+
 ## 메타데이터 Metadata
 - 데이터의 데이터
-- 타입스크립트에서는 실험적인 기능 제공을 하기 때문에 따로 tsconfig.json에서 설정을 해주어야 한다.
-    - tsconfig.json > compilerOptions > emitDecoratorMetadata : true
+
+### Reflection
+동일한 시스템(또는 그 자체)의 다른 코드를 검사할 수 있는 코드를 설명하는데 사용됩니다.
+
+### Typescript에서의 reflection API
+Typescript에서는 reflect-metadata 패키지를 사용하여 메타데이터 리플렉션 API를 사용할 수 있습니다.
+```console
+npm install reflect-metadata
+```
+
+Typescript의 tsconfig.json 파일의 emitDecoratorMetadat를 true로 설정해야 합니다.  
+이제 프로퍼티 데코레이터로 한번 적용 해본다면..
+
+예제 decorator
+```ts
+function logtype(target: any, key: string) {
+    let t = Reflect.getMetadata("design:type", target, key);
+    console.log(`${key} type : ${t.name}`);
+}
+```
+그리고 클래스에 적용한다면
+```ts
+class izone {
+    @logType
+    public wizone: string;
+}
+```
+
+이제 이렇게 작성한 예제 코드를 실행 한다면
+```console
+// console
+wizone type: String
+```
+
+파라미터 데코레이터에 적용 해봅시당
+```ts
+function logParamTypes(target: any, key: string) {
+    let types = Reflect.getMetadata("design:paramtypes", target, key);
+    let s = types.map(a => a.name).join();
+    console.log(`${key} param types: ${s}`)
+}
+```
+
+이제 클래스의 메서드 중 하나에 이 함수를 적용해보면
+```ts
+class Ive {}
+interface Dive {}
+
+class Lovedive{
+  @logParamTypes
+  narcissistic(
+    yujin: string,
+    gaeul: number,
+    rei: Dive,
+    wonyoung: Ive,
+    liz: Function,
+    leeseo: { baby: string },
+  ): number {
+    return 1
+  }
+}
+```
+이제 위 예제를 실행하게 되면
+```console
+//console
+narcissistic param types : string, number, Object, Ive, Function, Object
+```
+
+design: returntype 이라는 메타 데이터 키를 사용하여 메서드의 반환 유형에 대한 정보를 얻을 수도 있습니다.
+
+이 외의 메타데이터 활용 예제는 아직 제대로 이해를 하지 못해서.. 나중에 추가하도록 하겠습니다.
