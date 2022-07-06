@@ -12,7 +12,6 @@ tags:
 ---
 
 # 타입스크립트 데코레이터
-## Intro 
 안녕하세요. 전제 사원입니다.
 타입스크립트 데코레이터 공부하면서 정리한 내용입니다.
 
@@ -70,24 +69,6 @@ function Apple(value: string) { //데코레이터 팩토리
     B Complate
     A Complate
     ```
-<hr>
-
-## 데코레이터 평가 
-- D : Decorator
-1. Method, Accessor 또는 Property D가 다음에 오는 Parameter D 는  
-각 Instance member에 적용됩니다.
-- Class > Object or method
-
-2. Method, Accessor 또는 Property D가 다음에 오는 Parameter D 는  
-각 Static member(정적 멤버)에 적용됩니다.
-- Class > Static Object
-
-3. Parameter D 는 생성자에 적용됩니다.
-- Constructor
-
-4. Class D 는 클래스에 적용됩니다.
-- Class
-
 <hr>
 
 ## 클래스 데코레이터 (Class Decorator)
@@ -334,19 +315,51 @@ function Inject(param: string) {
 class Car {
     private name: string;
     private price: number;
-    @Inject('myType') //값 주입
+    @Inject('myType') //값 주입, 위에서 이미 myType에 Classic이라는 값을 넣어놨음
     private type: string;
 }
 
-let myCar = new Car('AMG GT', 15000);
+let myCar = new Car('AMG GT', 15000); // type말고 나머지 name과 price에 값 할당
 console.log(myCar.toString()); // AMG GT, Classic, 15000
 ```
+
+여기서 클래스가 정의될 때 데코레이터 함수가 실행되어 클래스의 프로퍼티 값이 지정되기 때문에 클래스를 위와 같이 정의하면 컨테이너의 값을 수정해도 처음 값이 그대로 출력됩니다.
+
+```ts
+Container.add('myType', 'Custom');
+let myCar = new Car('918 Spider', 150000);
+console.log(myCar.toString()); // 918Spider, Classic, 150000
+```
+
+그래서 Car 클래스의 Type property가 값이 아닌 함수를 가지고 있게 수정 하고, 값이 아닌 함수를 return 하게 Inject function을 수정하게 된다면 수정된 컨테이너의 값이 반영 됩니다.
+
+```ts
+function Inject(param: string) {
+    ...
+    tartget[propertyKey] = () => Container.get(param); //값이 아닌 함수를 리턴
+}
+```
+
+```ts
+class Car {
+    ...
+    @Inject('myType')
+    private type: Function; //'type'은 값이 아니라 함수
+    ...
+}
+```
+```ts
+Container.add('myType', 'Custom');
+let myCar = new Car('918 Spider', 150000);
+console.log(myCar.toString()); // 918Spider, Custom, 150000
+```
+
 
 ## 매개변수 데코레이터 (Parameter decorator)
 매개 변수 선언 직전에 선언 합니다.  
 세 개의 인수와 함께 함수로 호출 합니다.
-1. 프로퍼티 데코레이터와 동일
-2. ''
+1. 정적 멤버에 대한 클래스의 생성자 함수 또는 인스턴스 멤버에 대한 클래스의 프로토타입
+2. 멤버의 이름
 3. 함수 매개 변수 목록에 있는 서수 색인 (Ordinal index)
 
 매개 변수 데코레이터의 반환값은 무시 됩니다.
@@ -404,14 +417,15 @@ Class decorator 입니다.
 
 <hr>
 
-## 자바 어노테이션과의 다른점 (Annotation)
+## Annotation vs Decorator
+### 자바 어노테이션과 다른 점
 문법적으로 봤을 때 java의 annotation과 큰 차이는 없습니다. 다만 차이점이 있다면  
 decorator는 runtime에서만 역할을 한다는 점 입니다. 
 
 java의 annotation은 Retention이라는 게 있어 compiler에게만 보이고, runtime에는 없어지게 하거나 runtime에도 살아남아서 jvm에 의해 참조할 수 있게 할수도 있습니다.
 
 - @Retention : 어느 시점까지 어노테이션의 메모리를 가져갈 지 설정합니다.
-    - 쉽게 얘기하면 어디까지 타입을 보유할지 설정
+    - 어노테이션의 라이프 사이클
 - Jvm (Java Virtual Machine) : Java 컴파일러가 bytecode로 변환한 것을 os가 이해해줄 수 있도록 해석해주는 것
 
 typescript에서는 정적인 타입이 없기 떄문에 애초에 compile time에 기능을 할 수 없습니다. 이런 측면에서 runtime에서만 활용할 수 있는 annotation이라고 볼 수 있습니다.
