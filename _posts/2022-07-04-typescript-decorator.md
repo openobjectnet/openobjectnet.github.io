@@ -383,7 +383,7 @@ function prod() {
     ...
 }
 
-function pramd() {
+function paramd() {
     console.log(parameter);
     ...
 }
@@ -428,10 +428,10 @@ java의 annotation은 Retention이라는 게 있어 compiler에게만 보이고,
     - 어노테이션의 라이프 사이클
 - Jvm (Java Virtual Machine) : Java 컴파일러가 bytecode로 변환한 것을 os가 이해해줄 수 있도록 해석해주는 것
 
-typescript에서는 정적인 타입이 없기 떄문에 애초에 compile time에 기능을 할 수 없습니다. 이런 측면에서 runtime에서만 활용할 수 있는 annotation이라고 볼 수 있습니다.
+typescript에서는 정적인 타입이 없기 때문에 애초에 compile time에 기능을 할 수 없습니다. 이런 측면에서 runtime에서만 활용할 수 있는 annotation이라고 볼 수 있습니다.
 
 - Compile Time : 개발자에 의해 작성된 소스코드를 컴퓨터가 인식할 수 있는 기계어 코드로 변환되어 실행 가능한 프로그램이 되는 과정을 의미
-- Run Time : 컴파일 과정을 마친 응용 프로그램이 사용자에 의해서 실행되는 때을 의미
+- Run Time : 컴파일 과정을 마친 응용 프로그램이 사용자에 의해서 실행되는 때를 의미
 
 <hr>
 
