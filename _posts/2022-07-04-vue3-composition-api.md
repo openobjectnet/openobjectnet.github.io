@@ -350,7 +350,7 @@ setTimeout(() => {
 기존 vue에서는 참고하자 하는 템플릿 요소에 ref="바인딩명" 형식으로 작성한 후, 마운트 이후 this.$refs를 통해 참조할 수 있었습니다.   
 하지만 컴포지션 API의 경우 this 컨텍스트가 존재하지 않으므로 조금 다른 방법으로 사용해야 합니다.
 
-![해당 사이트](../assets/images/vue3-composition-api/template_refs.png)
+![template refs](/assets/images/vue3-composition-api/template_refs.png)
 
 참고하고자 하는 템플릿 요소에 ref 속성을 추가하는 것은 기존과 동일합니다. 이에 따라 동일한 이름을 가진 ref 값을 생성합니다.   
 템플릿에 추가한 ref 속성의 키 값과 동일한 이름을 가진 ref가 존재한다면, 해당 요소를 지정된 ref 값에 할당시킵니다.   
