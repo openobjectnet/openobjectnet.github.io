@@ -355,3 +355,125 @@ setTimeout(() => {
 참고하고자 하는 템플릿 요소에 ref 속성을 추가하는 것은 기존과 동일합니다. 이에 따라 동일한 이름을 가진 ref 값을 생성합니다.   
 템플릿에 추가한 ref 속성의 키 값과 동일한 이름을 가진 ref가 존재한다면, 해당 요소를 지정된 ref 값에 할당시킵니다.   
 마운트 과정에서 할당하므로, 마운트 이후 참조 가능하다는 것을 인지하시고 구현하셔야 합니다.
+
+
+# 5. props, emit
+
+composition api에서 props와 emit을 사용하는 방식이 바뀌었습니다. 
+
+예제 코드를 보시죠,
+```javascript
+<template>
+</template>
+
+<script lang="ts">
+import { defineComponent, ref } from '~/vue-wrapper'
+
+export default defineComponent({
+  props: {
+    id: String,
+    label: String,
+    disabled: Boolean,
+    checked: Boolean
+  },
+  setup(props, context) {
+    const isChecked = ref(props.checked)
+    const toggleCheckBox = (): void => {
+      isChecked.value = !isChecked.value
+      context.emit('on-change', isChecked.value)
+    }
+
+    return { isChecked, toggleCheckBox }
+  }
+})
+</script>
+```
+
+props의 경우에는 위 와 같이 object를 따로 만든 후 setup 메서드에 props 인자를 추가시키고, 사용하면 됩니다.   
+emit의 경우에는 setup 메서드에서 context 인자를 추가시키고, context.emit을 활용하여 사용하면 됩니다.
+
+디스트럭처링을 사용하여 구현하고 싶을 경우 props는 toRefs를 사용하여 구현해야 props의 반응성이 깨지지 않고 정상적으로 전달됩니다.   
+emit은 일반적으로 디스트럭처링해도 문제없습니다.  
+
+```javascript 
+import { toRefs } from 'vue'
+
+export default {
+  props: {
+    items: Array,
+    checked: Boolean
+  },
+  setup(props, { emit }) {
+    const isChecked = ref(props.checked)
+    const { items } = toRefs(props);
+    emit('on-change', isChecked.value);
+  }
+}
+```
+
+
+
+
+# 6. context 인자
+context는 컴포넌트 속성 3개를 접근할 수 있는 인자(attrs, slots, emit)입니다.   
+emit은 위 파트에서 설명드렸고, 남은 2가지 속성을 소개시켜드리겠습니다.   
+
+- context.attrs
+
+  attrs는 props에 선언되지 않은 추가 요소 속성을 가져올 때 사용합니다.
+  ```javascript
+  export default {
+    props: {
+      value: String,
+    },
+    setup(props, context) {
+      console.log(context.attrs)
+    },
+  }
+  ```
+  하위컴포넌트의 script 코드를 위과 같이 구현하고,<br>  
+  상위컴포넌트에서 아래와 같이 template를 구현하였을 때,
+  ```html
+  <template>
+    <custom-component
+        :value="value"
+        test="hi"
+        @close="close"
+      />
+  </template>
+  ```
+
+  선언된 props 외에 모든 것이 포함되어 proxy 객체를 이루고 그 객체가 log로 출력됩니다.
+  ![context attrs log](/assets/images/vue3-composition-api/context_attrs_log.PNG)
+
+<br>
+
+- context.slots
+
+  slots는 슬롯 커스텀 렌더링 시에 사용합니다.   
+  ```html
+  <template>
+    <child-component :level="1"> Hello World </child-component>
+  </template>
+  ```
+
+  ```javascript
+  import { h } from 'vue'
+  export default {
+    props: {
+      level: Number,
+    },
+    setup(props, context) {
+      console.log('here')
+      return () =>
+        h(
+          'h' + props.level,
+          {}, // props and attributes: OPTIONAL
+          context.slots.default() /* Rendering our default slot */
+        )
+    },
+  }
+  ```
+
+
+
