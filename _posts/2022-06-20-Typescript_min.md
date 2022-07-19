@@ -80,7 +80,7 @@ function filterHumans(anys) {
 }
 ```
 그렇게 저 코드가 수백줄에 걸치는 엄청난 양이 되어서 완성 되고난 뒤에는 고양이가 가지고 논 실뭉치 처럼 코드를 풀어가기가 매우 어려워 질겁니다. 물론 숙련된 개발자는 저런식으로 코드를 짜지 않거나 아주 단순한 부분에서 한정된 처리를 위해 사용하는등 코드를 뒤엉킨 실뭉치로 만들지는 않습니다. 하지만 그런 사람은 전설의 포켓몬 마냥 희귀한 존재고 대부분은 개발자는 적당히 잘되는 코드를 작성한 뒤에 먼 훗날의 누군가가 이런 문제로 고통받고 이런 코드를 만든 개발자를 저주하며 사람이였던 것으로 만들고 싶어 할 겁니다.   
-이런 Javascript의 극악의 자유도에서 발생하는 문제를 사전에 막기 위해 Typescript를 사용하게 되죠.
+이런 Javascript의 극악의 자유도에서 발생하는 문제를 사전에 막기 위해 Typescript를 사용하게 되었습니다.
 
 # Typescript 그래서 어떻게?
 
@@ -724,7 +724,132 @@ let num: number = 0;
 ## 특수 기능
 
 ### 데코레이터
-클래스 데코레이터입니다.   
+자바의 어노테이션과 같습니다.   
 > **주의**   
 > 해당 기능은 '실험적'입니다. 향후 변경될 수 있습니다.   
 
+우리는 간혹 특정한 여러 함수나 값들에 동일한 절차를 걸치고 싶어 합니다.   
+예를 들어 다음과 같은 코드가 있다고 합시다.   
+```typescript
+class Foo {
+  private width: number;
+  private height: number;
+  ...
+  getWidth() {
+    return this.width;
+  }
+  getHeight() {
+    return this.height;
+  }
+  ...
+}
+```
+여기서 width와 height뒤에 해당 값들의 단위인 px을 붙이고 싶다면 다음과 같이 작성할 수 있을 것입니다.
+```typescript
+  return `${this.width}px`;
+```
+여기서 우리는 한가지 생각해야 할 것이 있습니다.   
+언제나 그렇듯 이런 문자열 탬플릿을 수십, 수백가지의 코드에서 선언하고 단위가 바뀌어 px을 cm로 변경해야 한다면?   
+물론 단순한 단위라면 상수를 사용해 문제를 해결할 수 있을 것입니디.   
+하지만 특정한 연산이나 후속 처리를 해야 하는 경우에는 해당 처리가 필요한 모든 함수의 호출 부분을 특정한 함수로 감싸 처리할 필요가 있죠. 이러한 번거로움을 도와줄 기능이 바로 데코레이터 입니다.   
+
+ - 용법
+  데코레이터는 기본적으로 함수로 선언됩니다.   
+  다만 사용하려는 데코레이터의 종류에 따라 받는 인자와 반환값에 차이가 있습니다.   
+  
+   - 클래스 데코레이터   
+   클래스 데코레이터는 다음과 같습니다.   
+   ```typescript
+   function Foo<T extends {new(...args:any[]):{}}>(constructor: T): T {
+    //클래스가 선언될때 실행되는 공간으로 아규먼트의 확인 등을 할 수 있습니다.
+    return class extends constructor {
+      //이렇게 클래스를 확장할 수 있습니다. 아무런 값도 반환하지 않는 다면 기본 생성자를 그대로 사용합니다.
+      constructor() {
+        super(...args);
+      }
+    }
+   }
+
+   @Foo
+   class Bar { }
+   ```
+   - 메서드 데코레이터 & 접근자 데코레이터
+    메서드 데코레이터는 다음과 같습니다.   
+    접근자 데코레이터도 동일하게 선언됩니다.
+    ```typescript
+    function Foo() {
+      //함수가 선언될때 실행됩니다.
+      /**
+       * @param { any } target 해당 메서드의 프로토타입입니다.
+       * @param { string } propertyKey 해당 메서드의 이름입니다.
+       * @param { PropertyDescriptor } descriptor 해당 메서드의 정보입니다.
+      */
+      return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+        descriptor.value = function(...args: any[]) {
+          descriptor.value(...args);
+          //여기서 함수를 확장합니다.
+          //여기서 this는 해당 메서드를 실행하는 객체가 됩니다.
+        }
+      }
+    }
+    class Bar {
+      ...
+      @Foo
+      sayMyName() {}
+      ...
+    }
+    ```
+   - 프로퍼티 데코레이터
+    현재로서는 그저 선언되었음을 알리는 용도입니다.   
+    단 이는 타입스크립트 문서상의 표시일 뿐이고 실제로는 여러가지 처리를 할 수 있습니다.   
+    다음은 reflect-metadata대용 예제입니다.
+    ```typescript
+    const valueManager = {
+      setValue<T extends {}>(object: T, key: string, value: any) {
+        Object.defineProperty(object, key, {
+          value: value,
+          configurable: true,
+          enumerable: true,
+          writable: true,
+        });
+      },
+      getValue<U extends any>(object: any, key: string):U {
+        return object[key];
+      },
+    };
+    function Foo(value: string) {
+      //클래스 생성 이전 시점입니다. - 아래와 동일한 시접입니다.
+      return function <T extends {}>(prototype: T, key: string) {
+        //클래스 생성 이전 시점입니다. - 위와 동일한 시접입니다.
+        valueManager.setValue(prototype, `${key}-msg`, value);
+      };
+    }
+
+    class Bar {
+      @Foo("hello")
+      name: string;
+
+      constructor() {
+        this.name = "Bar";
+        console.log(valueManager.getValue<string>(this, "name-msg"));
+        // hello
+      }
+    }
+    ```
+    - 매개변수 데코레이터
+     프로퍼티 데코레이터와 비슷하지만 몇가지 다른 부분이 있지만 거의 동일합니다.   
+     ```typescript
+     function Foo(value: string) {
+      return function <T extends {}>(prototype: T, key: string, parameterIndex: number) {  
+        valueManager.setValue(prototype, `${key}-msg`, value);
+      };
+     }
+
+     class Bar {
+      constructor(@Foo('hello') name: string) {
+        this.name = name;
+        console.log(valueManager.getValue<string>(this, "name-msg"));
+        // hello
+      }
+     }
+     ```
