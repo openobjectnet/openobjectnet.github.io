@@ -753,92 +753,92 @@ class Foo {
 물론 단순한 단위라면 상수를 사용해 문제를 해결할 수 있을 것입니디.   
 하지만 특정한 연산이나 후속 처리를 해야 하는 경우에는 해당 처리가 필요한 모든 함수의 호출 부분을 특정한 함수로 감싸 처리할 필요가 있죠. 이러한 번거로움을 도와줄 기능이 바로 데코레이터 입니다.   
 
- - 용법
+- 용법
   데코레이터는 기본적으로 함수로 선언됩니다.   
   다만 사용하려는 데코레이터의 종류에 따라 받는 인자와 반환값에 차이가 있습니다.   
   
-   - 클래스 데코레이터   
-   클래스 데코레이터는 다음과 같습니다.   
-   ```typescript
-   function Foo<T extends {new(...args:any[]):{}}>(constructor: T): T {
-    //클래스가 선언될때 실행되는 공간으로 아규먼트의 확인 등을 할 수 있습니다.
-    return class extends constructor {
-      //이렇게 클래스를 확장할 수 있습니다. 아무런 값도 반환하지 않는 다면 기본 생성자를 그대로 사용합니다.
-      constructor() {
-        super(...args);
-      }
+  - 클래스 데코레이터   
+   클래스 데코레이터는 다음과 같습니다.  
+   ```typescript 
+    function Foo<T extends {new(...args:any[]):{}}>(constructor: T): T {
+     //클래스가 선언될때 실행되는 공간으로 아규먼트의 확인 등을 할 수 있습니다.
+     return class extends constructor {
+       //이렇게 클래스를 확장할 수 있습니다. 아무런 값도 반환하지 않는 다면 기본 생성자를 그대로 사용합니다.
+       constructor() {
+         super(...args);
+       }
+     }
     }
-   }
 
-   @Foo
-   class Bar { }
-   ```
-   - 메서드 데코레이터 & 접근자 데코레이터
+    @Foo
+    class Bar { }
+    ```
+  - 메서드 데코레이터 & 접근자 데코레이터
     메서드 데코레이터는 다음과 같습니다.   
     접근자 데코레이터도 동일하게 선언됩니다.
     ```typescript
-    function Foo() {
-      //함수가 선언될때 실행됩니다.
-      /**
-       * @param { any } target 해당 메서드의 프로토타입입니다.
-       * @param { string } propertyKey 해당 메서드의 이름입니다.
-       * @param { PropertyDescriptor } descriptor 해당 메서드의 정보입니다.
-      */
-      return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
-        descriptor.value = function(...args: any[]) {
-          descriptor.value(...args);
-          //여기서 함수를 확장합니다.
-          //여기서 this는 해당 메서드를 실행하는 객체가 됩니다.
+      function Foo() {
+        //함수가 선언될때 실행됩니다.
+        /**
+         * @param { any } target 해당 메서드의 프로토타입입니다.
+         * @param { string } propertyKey 해당 메서드의 이름입니다.
+         * @param { PropertyDescriptor } descriptor 해당 메서드의 정보입니다.
+        */
+        return function(target: any, propertyKey: string, descriptor: PropertyDescriptor) {
+          descriptor.value = function(...args: any[]) {
+            descriptor.value(...args);
+            //여기서 함수를 확장합니다.
+            //여기서 this는 해당 메서드를 실행하는 객체가 됩니다.
+          }
         }
       }
-    }
-    class Bar {
-      ...
-      @Foo
-      sayMyName() {}
-      ...
-    }
+      class Bar {
+        ...
+        @Foo
+        sayMyName() {}
+        ...
+      }
     ```
-   - 프로퍼티 데코레이터
+  - 프로퍼티 데코레이터
     현재로서는 그저 선언되었음을 알리는 용도입니다.   
     단 이는 타입스크립트 문서상의 표시일 뿐이고 실제로는 여러가지 처리를 할 수 있습니다.   
     다음은 reflect-metadata대용 예제입니다.
     ```typescript
-    const valueManager = {
-      setValue<T extends {}>(object: T, key: string, value: any) {
-        Object.defineProperty(object, key, {
-          value: value,
-          configurable: true,
-          enumerable: true,
-          writable: true,
-        });
-      },
-      getValue<U extends any>(object: any, key: string):U {
-        return object[key];
-      },
-    };
-    function Foo(value: string) {
-      //클래스 생성 이전 시점입니다. - 아래와 동일한 시접입니다.
-      return function <T extends {}>(prototype: T, key: string) {
-        //클래스 생성 이전 시점입니다. - 위와 동일한 시접입니다.
-        valueManager.setValue(prototype, `${key}-msg`, value);
+      const valueManager = {
+        setValue<T extends {}>(object: T, key: string, value: any) {
+          Object.defineProperty(object, key, {
+            value: value,
+            configurable: true,
+            enumerable: true,
+            writable: true,
+          });
+        },
+        getValue<U extends any>(object: any, key: string):U {
+          return object[key];
+        },
       };
-    }
-
-    class Bar {
-      @Foo("hello")
-      name: string;
-
-      constructor() {
-        this.name = "Bar";
-        console.log(valueManager.getValue<string>(this, "name-msg"));
-        // hello
+      function Foo(value: string) {
+        //클래스 생성 이전 시점입니다. - 아래와 동일한 시접입니다.
+        return function <T extends {}>(prototype: T, key: string) {
+          //클래스 생성 이전 시점입니다. - 위와 동일한 시접입니다.
+          valueManager.setValue(prototype, `${key}-msg`, value);
+        };
       }
-    }
+
+      class Bar {
+        @Foo("hello")
+        name: string;
+
+        constructor() {
+          this.name = "Bar";
+          console.log(valueManager.getValue<string>(this, "name-msg"));
+          // hello
+        }
+      }
     ```
-    - 매개변수 데코레이터
-     프로퍼티 데코레이터와 비슷하지만 몇가지 다른 부분이 있지만 거의 동일합니다.   
-     ```typescript
+  - 매개변수 데코레이터
+    프로퍼티 데코레이터와 비슷하지만 몇가지 다른 부분이 있지만 거의 동일합니다.   
+    ```typescript
      function Foo(value: string) {
       return function <T extends {}>(prototype: T, key: string, parameterIndex: number) {  
         valueManager.setValue(prototype, `${key}-msg`, value);
@@ -853,3 +853,4 @@ class Foo {
       }
      }
      ```
+     
