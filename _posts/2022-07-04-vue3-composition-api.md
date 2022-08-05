@@ -59,7 +59,7 @@ options api에서의 lifecycle hook과는 좀 다르게 구성되어 있습니�
     ```html
     <template>
     <button @click="increment">
-        {{ state.count }}
+        {% raw %} {{ state.count }} {% endraw %}
     </button>
     </template>
     ```
@@ -186,7 +186,7 @@ ref의 값으로 객체가 전달될 경우에는 reactive 메소드를 통해 �
 사용 방법은 다음 예제와 같습니다.
 ```html
 <template>
-  <div>{{ count }} {{ object.foo }}</div>
+  <div>{% raw %}{{ count }}{% endraw %} {% raw %}{{ object.foo }}{% endraw %}</div>
 </template>
 
 <script>
@@ -224,7 +224,7 @@ const msg = words.a
 </script>
 
 <template>
-  <h1>msg = {{ msg }}</h1>
+  <h1>msg = {% raw %}{{ msg }}{% endraw %}</h1>
   <input v-model="msg">
 </template>
 ```
@@ -244,7 +244,7 @@ const msg = toRef(words, 'a')
 </script>
 
 <template>
-  <h1>msg = {{ msg}}</h1>
+  <h1>msg = {% raw %}{{ msg }}{% endraw %}</h1>
   <input v-model="msg">
 </template>
 ```
@@ -261,7 +261,7 @@ const {a,b} = toRefs(words)
 </script>
 
 <template>
-  <h1>msg = {{ a }}</h1>
+  <h1>msg = {% raw %}{{ a }}{% endraw %}</h1>
   <input v-model="a">
 </template>
 ```
