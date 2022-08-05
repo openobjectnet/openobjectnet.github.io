@@ -280,7 +280,7 @@ this.axios.interceptors.response.use((response) => {
 					return getResponseEntity(tokens);
 				} else {
 					log.error("리플레시 토큰 유효기간 만료!!");
-					return getErrorEntity(new HashMap<String,String>(){{put("message","토큰이 유효하지 않습니다.");}});
+					return getErrorEntity(new HashMap<String,String>(){put("message","토큰이 유효하지 않습니다.")});
 				}
 			} catch (Exception e) {
 				log.error("refreshToken Exception", e);
