@@ -444,7 +444,7 @@ emit은 위 파트에서 설명드렸고, 남은 2가지 속성을 소개시켜�
   ```
 
   선언된 props 외에 모든 것이 포함되어 proxy 객체를 이루고 그 객체가 log로 출력됩니다.
-  ![context attrs log](/assets/images/vue3-composition-api/context_attrs_log.PNG)
+  ![context attrs log](/assets/images/vue3-composition-api/context_attrs_log.png)
 
 <br>
 
