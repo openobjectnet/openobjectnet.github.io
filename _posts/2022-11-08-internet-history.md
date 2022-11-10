@@ -57,6 +57,23 @@ author: 최윤찬
 ### 신뢰성 
 * TCP의 가장 중요한 특징 중 하나로 TCP는 손상되거나 없어지거나 중보되거나 네트워크 계층에서 순서가 틀어져서 전달된 데이터를 복구해야 한다. 
 * 이것을 실현하기 위해 적극적 수신, 통지, 재전송 체계를 사용. 
+### TCP 구조
+
+![image](http://lh6.ggpht.com/_Os5qf5urx_A/S1B2rISxU_I/AAAAAAAABBY/59uGrupJwjU/s800/tcp_header.png)
+
+* Source Port(16bits): 출발지 포트번호
+* Destinations Port(16bits): 목적지 포트 번호
+* Sequence Number(32bits): 송신데이터 순서 번호 
+* Acknowlegment Number(32bits): 상대방이 다음에 전송할 순서번호로써 수신확인 응답과 함께 해당 필드에 상대방이 다음에 전송할 순서 번호를 담아서 보냅니다.
+* HLEN(4bits): 헤더의 길이
+* Reserved(4bits): 예약
+* control Flags(6bits): URG(긴급 데이터 설정), ACK(수신확인 응답 설정), PSH(송수신 버퍼에 있는 데이터를 즐시 처리), PST(연결중단/강제 종류), SYN(연결 설정), FIN(연결종료)
+* WindowsSize(16bits): 수신측에서 송신측에 보내는 Receiver window size로 수신버퍼의 여유 공간 크기를 의미합니다.
+* Checksum(16bits): 헤더를 포함한 전체 세그먼트에 대한 오류를 검사하기위한 필드
+* Urgent Pointer(16bits): 세그먼트가 긴급 데이터를 포함하고 있는 경우에 사용되는 필드로 긴급 데이터의 위치값을 담고 있습니다.
+
+
+
 ### 흐름제어 
 * 데이터 세그먼트를 송수신하는 컴퓨터는 CPU와 네트워크 대역폭의 차이 때문에 서로 다른 데이터 속도로 작동할 수 있다.
 * 결국 수신자가 처리할 수 있는 것보다 훨씬 더 빠른 속도로 송신자가 데이터를 보낼 가능성이 많다.
@@ -77,9 +94,20 @@ author: 최윤찬
 ## IP란?
 * 통신에 필요한 고유 주소를 말하며, 통신 기능이 제공되는 기기들이 서로 통신을 하기 위해 필요한 고유 번호입니다.
 * 2022년 기준으로 IPv4와 IPv6 두 가지 체계가 있다.
-* 
-### 
+### IPv4
+* 주소는 32비트 방식으로 8비트씩 4자리로 되어 있으며 각자리는 온점으로 구분합니다.
+* 약 42억 9천개의 주소를 가질 수 있습니다.
+* 전 세계적으로 인터넷 사용자 수가 급증하면서 IP4주소가 고갈될 위기에 처했습니다.
 
+![image](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fk.kakaocdn.net%2Fdn%2FoMOAY%2FbtqAK4VovNN%2FDoefcKiLVzKgBoNn0Mhdg1%2Fimg.jpg)
+
+
+### IPv6
+* IP version 6의 약자
+* IPv4의 주소체계를 128비트 크기로 확장한 차세대 인터넷 프로토콜 주소입니다.
+* 16비트씩 8자리로 각 자리는 콜론으로 구분합니다.
+
+![image](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fk.kakaocdn.net%2Fdn%2F2wzWe%2FbtqALPQ3O2y%2FvIeARlvnVMsn1XKGz30tOk%2Fimg.png)
 
 
 
