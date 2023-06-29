@@ -1,3 +1,15 @@
+---
+title:  "멘토링에서 배운 Spring 유지보수 기법(Legacy, Eclipse 기준)"
+search: false
+last_modified_at: 2023-06-22T22:28:00-05:00
+categories: 
+  - Spring
+toc: true  
+tags:
+  - Spring
+author: 허재원
+---
+
 # 멘토링에서 배운 Spring 유지보수 기법(Legacy, Eclipse 기준)
 
 멘토링으로 배운 것 중 유지보수 관점으로 묶을 수 있는 것을 정리하였습니다. 여전히 부족한 점이 많으니 참고하여 읽어주시면 감사하겠습니다.
@@ -632,7 +644,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 }
 ```
 
+
 <br>
+
+boot와는 달리 Filter를 만들었다면 아래와 같이 web.xml(혹은 그에 준하는 class config)에 등록시켜주는 과정이 필요합니다.
+
+```java
+public class MyWebAppInitializer implements WebApplicationInitializer {
+	.
+	.
+	.
+ private void addIncodingFilter(ServletContext servletContext){
+.
+.
+.
+		   DelegatingFilterProxy springSecurityFilterChain = new DelegatingFilterProxy();
+	       FilterRegistration.Dynamic springSecurity = servletContext.addFilter("springSecurityFilterChain", springSecurityFilterChain);
+	       springSecurity.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "/*");
+
+	  }
+}
+```
 
 ---
 
