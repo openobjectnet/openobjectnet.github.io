@@ -16,8 +16,6 @@ author: 웹서버 개발자
 > 멘토링을 진행하면 간단한 프로젝트를 진행하며 개발에 대한 피드백을 진행할 예정이다.   
 
 # 오리엔테이션 - 신입 개발자와 멘토링 시작
->- 우리가 흔히 사용하는 신용/체크 카드의 전산화 과정은 어떻게 될까?
->   - 카드 전산화 과정 및 승인, 전표 매입, 청구, 여신 등의 용어를 설명한다. (by.한수웅 부장님)
 >- SI 프로젝트의 진행과정은 어떻게 될까? 
 >   - 제안요청 및 작성, 요구사항 수립, 분석/설계, 개발, 테스트, 오픈, 안정화등등 진행과정에 소프트공학에 대해 알아본다. (by.최호남 부장님)
 >- SI 프로젝트에 투입이 되면 누구와 어떤일을 할까?
@@ -27,8 +25,8 @@ author: 웹서버 개발자
 
 # 1개월차 - 웹 개발 기본 구성 및 실습
 ## 프로젝트 환경  
->- server : aws + tomcat  
->- server framework : spring + maven  
+>- server : Linux + Tomcat  
+>- server framework : spring legacy + maven  
 >- db : maria DB  
 >- css framework : bootstrap  
 >- 소스형상관리 : git (github)
