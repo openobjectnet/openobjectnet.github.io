@@ -25,4 +25,38 @@ authors: 서상균
 
 ![그림](https://velog.velcdn.com/images/msung99/post/09663656-54a5-4138-9ffc-43ac28a694b5/image.png)
 
+<br>
+
+- 구성
+    - Message Body (Payload) : 메시지 본문을 통해 표현 데이터를 전달합니다.
+    - Representation (표현) : 요청 또는 응답에서 전달할 실제 데이터
+      - 표현 : 표현 메타데이터 (표현 헤더) + 표현 데이터
+      - 표현 헤더 : 표현 데이터를 해석할 수 있는 정보를 제공합니다.
+      - 표현 데이터 : 요청 및 응답의 메시지 본문을 뜻합니다. 
+
+- 표현 헤더
+    - Content-Type : 표현 데이터 형식입니다.
+    - Content-Encoding : 표현 데이터의 압축 방식입니다.
+    - Content-Language : 표현 데이터의 자연 언어입니다.
+    - Content-Length : 표현 데이터의 길이입니다.
+
+![그림](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FFVq1L%2Fbtrvvbd0Q08%2FBMm9ge8uabDiTq5iAwD7Z0%2Fimg.png)
+
+  - HTTP/1.1 : 현재 웹 페이지의 HTTP 버전을 뜻합니다.
+  - 200 OK : HTTP의 상태코드를 뜻합니다. (200의 경우 요청이 정상 처리 되었음을 뜻합니다.)
+  - Content-Type 과 Content-Length는 표현 헤더입니다.
+  - html 태그와 JSON 형태의 데이터는 표현 데이터입니다.
+
+<br>
+
+- Content-Type
+    - 표현데이터를 보낼 타입을 정의하거나 문자 인코딩을 정의합니다.
+    - text/html; charset=utf-8 : 데이터의 text형식은 html 이고 utf-8 방식으로 인코딩 한다는 의미입니다.
+    - application/json : 파일 형태가 JSON 임을 뜻합니다.
+    - image/png : 이미지가 png 형태임을 뜻합니다.
+
+- Content-Encoding
+    - 데이터를 압축하는데 사용하는 방식을 뜻합니다.
+    - 데이터를 읽는 쪽에서 해당 타입을 참고해 압축 해제를 할 수 있습니다.
+    - identity 타입의 경우 압축을 하지 않는다는 의미 입니다.
 
