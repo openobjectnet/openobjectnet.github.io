@@ -47,10 +47,10 @@ author: 서상균
 
 ![그림](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FFVq1L%2Fbtrvvbd0Q08%2FBMm9ge8uabDiTq5iAwD7Z0%2Fimg.png)
 
-    - HTTP/1.1 : 현재 웹 페이지의 HTTP 버전을 뜻합니다.
-    - 200 OK : HTTP의 상태코드를 뜻합니다. (200의 경우 요청이 정상 처리 되었음을 뜻합니다.)
-    - Content-Type 과 Content-Length는 표현 헤더입니다.
-    - html 태그와 JSON 형태의 데이터는 표현 데이터입니다.
+  - HTTP/1.1 : 현재 웹 페이지의 HTTP 버전을 뜻합니다.
+  - 200 OK : HTTP의 상태코드를 뜻합니다. (200의 경우 요청이 정상 처리 되었음을 뜻합니다.)
+  - Content-Type 과 Content-Length는 표현 헤더입니다.
+  - html 태그와 JSON 형태의 데이터는 표현 데이터입니다.
 
 <br>
 
@@ -84,16 +84,16 @@ author: 서상균
 
 ![그림](https://velog.velcdn.com/images%2Fleemember%2Fpost%2F5410d7b0-970e-4f37-b301-976c06e8df3e%2Fzvzv.JPG)
 
-    - 다중 언어를 지원하는 서버에서 기본 타입의 언어를 en으로 지정하고 있다면, 클라이언트의 요청 헤더에 Accept와 관련한 정보를 담고 있지 않을 경우 다중 언어 지원 서버에서는 en으로 구성된 내용으로 응답을 해줍니다.
+  - 다중 언어를 지원하는 서버에서 기본 타입의 언어를 en으로 지정하고 있다면, 클라이언트의 요청 헤더에 Accept와 관련한 정보를 담고 있지 않을 경우 다중 언어 지원 서버에서는 en으로 구성된 내용으로 응답을 해줍니다.
 
 ![그림](https://velog.velcdn.com/images/pp8817/post/cb28b1ed-2666-41c0-b712-318a445a1ef6/image.png)
 
-    - Accept-Language:ko를 헤더에 담아 클라이언트가 다중 언어 서버에 요청을 한다면, 서버에서는 en을 기본으로 지원하고 있지만 해당 요청 헤더 사항을 보고 ko로 구성된 내용을 응답 해줍니다.
+  - Accept-Language:ko를 헤더에 담아 클라이언트가 다중 언어 서버에 요청을 한다면, 서버에서는 en을 기본으로 지원하고 있지만 해당 요청 헤더 사항을 보고 ko로 구성된 내용을 응답 해줍니다.
     
 ![그림](https://velog.velcdn.com/images/pp8817/post/e4325a9e-61a8-49fd-b8bc-d4b0b1bc6965/image.png)
 
-    - 클라이언트가 Accept-Language:ko 를 헤더에 담아 요청했지만 다중 언어를 지원하는 서버에서 ko를 지원하지 않는다면, de(독일어) 보다는 en(영어)를 지원해주기를 바랄 것입니다. 
-    - 이러한 경우에 의해 협상의 우선순위가 필요하게 됩니다.
+  - 클라이언트가 Accept-Language:ko 를 헤더에 담아 요청했지만 다중 언어를 지원하는 서버에서 ko를 지원하지 않는다면, de(독일어) 보다는 en(영어)를 지원해주기를 바랄 것입니다. 
+  - 이러한 경우에 의해 협상의 우선순위가 필요하게 됩니다.
 
 <br>
 
@@ -144,11 +144,14 @@ Accept: text/*, text/plain, text/plain;format=flowed, */*
 Accept: text/*;q=0.3, text/html;q=0.7, text/html;level=1, text/html;level=2;q=0.4, */*;q=0.5
 ```
 
-- 우선순위
+<br>
+
 ![그림](https://raw.githubusercontent.com/smpark1020/tistory/master/Web/%5BHTTP%20%EC%9B%B9%20%EA%B8%B0%EB%B3%B8%20%EC%A7%80%EC%8B%9D%5D%20%EC%BD%98%ED%85%90%EC%B8%A0%20%ED%98%91%EC%83%81/1.PNG)
 
-    - 서버에서 text/html;level=1의 미디어 타입을 제공하므로 해당 협상 헤더의 우선순위는 1의 값을 가집니다.
-    - 서버에서 text/plain의 미디어 타입을 제공하지만, 협상 헤더에 존재하지 않으므로 text/*과 매칭되어 0.3의 q 값을 가집니다.
+- 우선순위
+
+  - 서버에서 text/html;level=1의 미디어 타입을 제공하므로 해당 협상 헤더의 우선순위는 1의 값을 가집니다.
+  - 서버에서 text/plain의 미디어 타입을 제공하지만, 협상 헤더에 존재하지 않으므로 text/*과 매칭되어 0.3의 q 값을 가집니다.
 
 <br>
 
@@ -202,4 +205,3 @@ Accept: text/*;q=0.3, text/html;q=0.7, text/html;level=1, text/html;level=2;q=0.
 
  - "noreferrer" 키워드를 통해 referer헤더를 제거 할 수 있습니다.
 
- 
