@@ -649,3 +649,83 @@ console.log(newF); // a, b, c, d 배열 출력
   - indexOf() : 인자로 넘어간 값이 존재할 경우 첫번 째 인덱스 값을 반환합니다. 데이터가 없을 경우 -1을 반환합니다.
   - includes() : 인자로 넘어간 값이 존재할 경우 true를 반환하며 없을 경우 false를 반환합니다.
   - lastIndexOf() : 인자로 넘어간 값이 존재할 경우 제일 마지막에 해당하는 값의 인덱스를 반환합니다.
+
+* join
+```javascript
+const test = ['a','b','c']
+console.log(fruits.join('.')); // a.b.c
+console.log(fruits.join('')); // abc
+console.log(fruits.join('-'));  // a-b-c
+```
+- 배열의 요소들을 구분자로 구분해서 출력합니다.
+- 구분자로는 string 타입의 문자열도 가능합니다.
+
+* some, every
+```javascript
+class Student {
+  constructor(name, age, enrolled, score) {
+    this.name = name;
+    this.age = age;
+    this.enrolled = enrolled;
+    this.score = score;
+  }
+}
+const students = [
+  new Student('A', 29, true, 45),
+  new Student('B', 28, false, 80),
+  new Student('C', 30, true, 90),
+  new Student('D', 40, false, 66),
+  new Student('E', 18, true, 88),
+];
+
+const result = students.some((student) => student.score < 50);
+  console.log(result); // true
+  
+const result2 = !students.every((student) => student.score >= 50);
+  console.log(result2); // true
+```
+- some 함수는 배열의 각 요소 마다 콜백함수가 실행되며 콜백함수의 안에 정의된 조건문에 의해 하나의 요소라도 그 조건을 만족한다면 true를 반환합니다.
+- every 함수는 배열의 각 요소마다 콜백함수가 실행되며 콜백함수의 안에 정의된 조건문에 의해 모든 요소가 그 조건을 만족해야 true를 반환합니다.
+
+* filter
+```javascript
+const result = students.filter((student) => student.enrolled === true);
+  console.log(result); 
+```
+- filter 함수는 배열의 요소마다 콜백함수가 실행되며 콜백함수의 조건에 맞는 요소들을 배열로 모아 출력합니다.
+- 위 코드의 경우 배열의 각 요소는 student라는 변수의 이름으로 적용되며 그 student에 enrolled가 true의 값을 가진 요소들만 모아 배열로 반환합니다.
+
+* map
+```javascript
+const result = students.map((student) => student.score);
+  console.log(result);
+
+let arr = [1,2,3,4];
+let result = arr.map((element) => element * 2);
+console.log(result); // 2,4,6,8
+```
+- 배열에 있는 모든 요소들의 값을 변경해서 만든 새로운 배열이 필요할 때 사용합니다.
+- 조건에 따라 반환되는 배열이 다양하지만, 일반적인 number가 들어있는 배열의 요소들에 연산이 필요할 때나, 객체가 들어있는 배열에서 필요한 값만 가지고와서 배열로 만들때 사용됩니다.
+- 위 코드의 경우 모든 배열 요소를 돌며 콜백 함수가 실행되고 콜백함수의 조건에 따라 student 객체의 score 값만 가지고와 배열로 반환합니다.
+
+* reduce
+```javascript
+const result = students.reduce((prev, curr) => {
+    return prev + curr.score;
+  }, 0);
+  console.log(result / students.length);
+```
+- reduce 함수는 배열의 각 요소를 순회하며 콜백함수를 실행한 값을 누적하여 하나의 결과값을 반환합니다.
+- prev : 초기 값이 존재할 경우 초기 값을 전달 받고 이전 값의 연산 결과를 가집니다.
+- curr : 현재 배열의 요소값 입니다.
+- 0 : 초기값 입니다.
+- **reduceRight** 라는 함수도 존재하며 이는 **reduce** 함수와는 반대로 실행되는 함수입니다.
+```
+prev : 0 , curr : 45
+prev : 45, curr : 80
+prev : 125, curr : 90
+prev : 215, curr : 66
+prev : 281, curr : 88
+prev : 281, curr : 88
+return 369
+```
