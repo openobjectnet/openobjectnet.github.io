@@ -24,7 +24,7 @@ JavaScript 기본 문법에 대한 내용을 정리했습니다.
 
 * JavaScript 탄생
   1. **JAVA** 는 어렵고 무거웠기 때문에 도입하지 못했고, _Brendan Eich_ 가 새로운 언어 **Mocha** 를 만들게 됩니다.
-  2. 이후 **Mocha** 는 **LiveScript** 로 이름이 변경 되었고, 이를 해석할 수 있는 엔진 **Live Script Interpreter가 포함된 브라우저가 출시됩니다.
+  2. 이후 **Mocha** 는 **LiveScript** 로 이름이 변경 되었고, 이를 해석할 수 있는 엔진 **Live Script Interpreter** 가 포함된 브라우저가 출시됩니다.
     - 개발자가 **LiveScript** 를 이용해 웹 사이트를 만들면 _Netscape Navigator_ 브라우저가 언어를 이해하고 실행하고자 하는 것에 맞게 DOM 요소들을 조작하는게 가능합니다.
   3. 당시 유행했던 **Java** 의 인기에 편승하여 **JavaScript** 라는 이름으로 변경되었고, **JavaScript** 와 **JavaScript Interpreter** 가 포함된 브라우저가 출시됩니다.
 
