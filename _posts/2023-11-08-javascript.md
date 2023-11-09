@@ -263,7 +263,7 @@ text = '8' / '2'; // type : number
 
 # 5. 함수
 
-* Default 파라미터
+**Default 파라미터**
 ```javascript
 function showMessage(message, from = 'unknown'){
   console.log(`${message} by ${from}`);
@@ -274,7 +274,7 @@ showMessage();
 - 함수 선언부분에 인자가 넘어오지 않는 경우를 대비해 인자의 default값을 지정할 수 있습니다.
 - 해당 기능은 ES6 버전부터 추가 되었습니다.
 
-* Rest 파라미터
+**Rest 파라미터**
 ```javascript
 function printAll(...args){
   for(let i = 0; i < args.length; i++){
@@ -287,7 +287,7 @@ printAll('a','b','c');
 - 배열 형태로 파라미터를 전달함을 의미합니다.
 - args에 'a', 'b', 'c'가 배열 형태로 담기는것으로 기능합니다.
 
-* 콜백함수
+**콜백함수**
 ```javascript
 function radom(answer, printYes, printNo){
   if(answer === 'right'){
@@ -299,7 +299,7 @@ function radom(answer, printYes, printNo){
 ```
 - 함수를 파라미터로 전달한 경우 해당 파라미터를 콜백함수라고 부릅니다.
 
-* 익명 함수
+**익명 함수**
 ```javascript
 const printYes = function () {
   console.log('yes');
@@ -307,7 +307,7 @@ const printYes = function () {
 ```
 - 함수에 이름이 없는 상태로 function 키워드를 통해 함수를 선언하고 변수에 할당한 경우입니다.
 
-* 기명 함수 (Named function)
+**기명 함수 (Named function)**
 ```javascript
 const printNo = function print(){
   console.log('no');
@@ -317,7 +317,7 @@ const printNo = function print(){
 - 디버깅할 때, 디버거 안에서 스택 추적이 가능하도록 할 때 사용합니다.
 - recursions : 함수 안에서 또 다른 함수를 호출할 때 사용합니다.
 
-* 화살표 함수 (Arrow function)
+**화살표 함수 (Arrow function)**
 ```javascript
 const simplePrint = () => console.log('simplePrint');
 const add = (a, b) => a + b;
@@ -328,7 +328,7 @@ const simpleAdd = (a, b) => {
 - 기본의 함수 선언 방식을 화살표 기호를 사용해 구현한 것입니다.
 - block을 사용할 경우에는 return (반환)이 필수입니다.
 
-* IIFE (Immediately Invoked Function Expression)
+**IIFE (Immediately Invoked Function Expression)**
 ```javascript
 (function hello(){
   console.log('IIFE');
@@ -374,7 +374,7 @@ p1.speak(); // 클래스에 정의한 메서드 실행
 - 클래스 이름의 첫번째는 항상 대문자로 시작합니다.
 - new 키워드를 통해 객체를 생성할 수 있습니다.
 
-* 게터와 세터 (Getter and Setters)
+**게터와 세터 (Getter and Setters)**
 ```javascript
 class User {
   constructor(firstName, lastName, age){
@@ -429,7 +429,7 @@ console.log(user1.age);
 - this.age = value가 동작할 때, 계속해서 setter 자기 자신을 호출하게 되면서 무한루프에 빠지게 됩니다.
 - 이를 해결하기 위해서 getter와 setter에 사용되는 변수명을 바꿔주는 것입니다. 이때는 보통 **_변수명** 처럼 아래 언더바 기호를 사용해 정의합니다.
 
-* fields (public, private)
+**fields (public, private)**
 ```javascript
 class Example{
   publicField = 2;
@@ -441,7 +441,7 @@ console.log(example.publicField);
 - private 필드의 경우 클래스 생성자 및 메서드에서만 접근이 가능합니다.
 - public 필드의 경우 외부에서도 접근이 가능합니다.
 
-* static
+**static**
 ```javascript
 
 class Article{
@@ -464,7 +464,7 @@ Article.printPublisher();
 - 공통적으로 사용할 때 효율적입니다.
 - 사용시에 해당 클래스의 인스턴스 객체로 호출하는 것이 아니고 클래스 자체로 호출하는 것입니다.
 
-* 상속
+**상속**
 ```javascript
 class Shape{
   constructor(width, height, color){
@@ -506,7 +506,7 @@ console.log(tri.getArea());
 - super 키워드를 통해 부모 클래스에 정의된 메서드를 호출할 수 있습니다.
 - super 키워드를 사용하지 않고, 자식 클래스에서 재정의한 메서드를 호출한다면, 부모 클래스의 메서드는 호출되지 않습니다.
 
-* instanceof
+**instanceof**
 
 위에 코드와 이어서 봐야합니다.
 ```javascript
@@ -524,7 +524,7 @@ console.log(tri instanceof Object); // True
 JavaScript의 데이터 타입중에 하나이며 관련된 데이터의 집합체 입니다.
 오브젝트는 {key : value}로 이루어져 있습니다.
 
-* 오브젝트 선언
+**오브젝트 선언**
 ```javascript
 const obj1 = {};
 const obj2 = new Object();
@@ -550,7 +550,7 @@ printValue(test, 'name');
 ```
 - 해당 경우에서 두번 째 호출 방식을 사용합니다.
 
-* 오브젝트 key 값 출력
+**오브젝트 key 값 출력**
 ```javascript
 for(key in test){
   console.log(key); // name, age 출력
@@ -558,7 +558,7 @@ for(key in test){
 ```
 - for..in 문법을 통해 오브젝트의 key값을 출력할 수 있습니다.
 
-* 오브젝트 클론
+**오브젝트 클론**
 ```javascript
 const user = {name: 'ee', age: '20'};
 const user2 = user;
@@ -577,7 +577,7 @@ console.log(user4);
 
 # 8. 배열
 
-* for .. of
+**for .. of**
 ```javascript
 const fruits = ['apple','banana'];
 for(let fruit of fruits){
@@ -586,7 +586,7 @@ for(let fruit of fruits){
 ```
 - 배열의 요소들을 출력하는 방법 중에 하나인 for of 문법입니다.
 
-* forEach
+**forEach**
 ```javascript
 fruits.forEach(function(fruit, index, array){
   console.log(fruit, index, array);
@@ -599,7 +599,7 @@ fruits.forEach((fruit, index) => console.log(fruit)); // apple, banana 출력
 - 보통은 _전체배열_ 은 전달하지 않고 사용하며 배열을 돌며 첫번째 값과 인덱스, 두번째 값과 인덱스... 이런식으로 동작합니다.
 - 밑에는 Arrow function을 사용해 좀 더 간편하게 구현한 모습입니다.
 
-* push, pop
+**push, pop**
 ```javascript
 fruits.push('peach','orange');
 console.log(fruits); // apple, banana, peach, orange 출력
@@ -611,7 +611,7 @@ console.log(fruits); // apple, banana 출력
 - push 함수의 경우 배열의 마지막 요소에 인자로 전달한 값을 추가합니다.
 - pop 함수의 경우 배열의 마지막 요소부터 제거합니다.
 
-* unshift , shift
+**unshift , shift**
 ```javascript
 fruits.unshift('orange');
 console.log(fruits); // orange, apple, banana 출력
@@ -623,7 +623,7 @@ console.log(fruits); // apple, banana 출력
 - shift 함수의 경우 배열의 첫번째 요소부터 제거합니다.
 - unshift와 shift의 경우 push와 pop보다 실행속도가 느립니다. 그 이유는 배열의 첫번째 요소의 변화가 생기며 다른 값들의 인덱스를 모두 변경해주어야 하기 때문입니다.
 
-* splice
+**splice**
 ```javascript
 fruits.splice(1,2, 'bam','baa','saa','seee');
 console.log(fruits);
@@ -635,7 +635,7 @@ console.log(fruits);
 - 두번째 함수의 실행결과로는 인덱스 2부터 시작하여 0개의 데이터를 지웠고, 시작 인덱스 2부터 'sss', 'kkk' 데이터를 배열에 추가합니다.
 - 함수에서 개수를 생략하고 실행한다면, 시작 인덱스 부터 모든 데이터를 지우게 됩니다.
 
-* concat
+**concat**
 ```javascript
 const fruits1 = ['a','b']
 const fruits2 = ['c','d'];
@@ -645,12 +645,12 @@ console.log(newF); // a, b, c, d 배열 출력
 - concat 함수로 두 개의 배열을 붙일 수 있습니다.
 - fruits1 배열 뒤에 fruits2 배열을 붙입니다.
 
-* searching
+**searching**
   - indexOf() : 인자로 넘어간 값이 존재할 경우 첫번 째 인덱스 값을 반환합니다. 데이터가 없을 경우 -1을 반환합니다.
   - includes() : 인자로 넘어간 값이 존재할 경우 true를 반환하며 없을 경우 false를 반환합니다.
   - lastIndexOf() : 인자로 넘어간 값이 존재할 경우 제일 마지막에 해당하는 값의 인덱스를 반환합니다.
 
-* join
+**join**
 ```javascript
 const test = ['a','b','c']
 console.log(fruits.join('.')); // a.b.c
@@ -660,7 +660,7 @@ console.log(fruits.join('-'));  // a-b-c
 - 배열의 요소들을 구분자로 구분해서 출력합니다.
 - 구분자로는 string 타입의 문자열도 가능합니다.
 
-* some, every
+**some, every**
 ```javascript
 class Student {
   constructor(name, age, enrolled, score) {
@@ -687,7 +687,7 @@ const result2 = !students.every((student) => student.score >= 50);
 - some 함수는 배열의 각 요소 마다 콜백함수가 실행되며 콜백함수의 안에 정의된 조건문에 의해 하나의 요소라도 그 조건을 만족한다면 true를 반환합니다.
 - every 함수는 배열의 각 요소마다 콜백함수가 실행되며 콜백함수의 안에 정의된 조건문에 의해 모든 요소가 그 조건을 만족해야 true를 반환합니다.
 
-* filter
+**filter**
 ```javascript
 const result = students.filter((student) => student.enrolled === true);
   console.log(result); 
@@ -695,7 +695,7 @@ const result = students.filter((student) => student.enrolled === true);
 - filter 함수는 배열의 요소마다 콜백함수가 실행되며 콜백함수의 조건에 맞는 요소들을 배열로 모아 출력합니다.
 - 위 코드의 경우 배열의 각 요소는 student라는 변수의 이름으로 적용되며 그 student에 enrolled가 true의 값을 가진 요소들만 모아 배열로 반환합니다.
 
-* map
+**map**
 ```javascript
 const result = students.map((student) => student.score);
   console.log(result);
@@ -708,7 +708,7 @@ console.log(result); // 2,4,6,8
 - 조건에 따라 반환되는 배열이 다양하지만, 일반적인 number가 들어있는 배열의 요소들에 연산이 필요할 때나, 객체가 들어있는 배열에서 필요한 값만 가지고와서 배열로 만들때 사용됩니다.
 - 위 코드의 경우 모든 배열 요소를 돌며 콜백 함수가 실행되고 콜백함수의 조건에 따라 student 객체의 score 값만 가지고와 배열로 반환합니다.
 
-* reduce
+**reduce**
 ```javascript
 const result = students.reduce((prev, curr) => {
     return prev + curr.score;
