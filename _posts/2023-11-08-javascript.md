@@ -729,3 +729,282 @@ prev : 281, curr : 88
 prev : 281, curr : 88
 return 369
 ```
+
+# 9. JSON
+
+**JSON 정의**
+
+- JavaScript Object Notation 의 약어입니다.
+- 자바스크립트의 객체 표기업을 제한하여 만든 텍스트 기반의 데이터 교환 표준입니다.
+- JSON을 사용하는 이유는 특정 언어에 종속되지 않으며, 대부분의 프로그래밍 언어에서 JSON 포맷의 데이터를 다룰수 있고 사람과 기계가 모두 이해하기 쉬운 형태로 제공되기 때문입니다.
+
+**JSON 형식**
+```javascript
+{
+  "name" : "홍길동",
+  "age" : 25,
+  "married" : false,
+  "family" : {"father" : "홍판서", "mother" : "춘섬"},
+  "hobbies" : ["독서", "축구"],
+  "jobs" : null
+}
+```
+- 객체, 배열, 숫자, 문자열, Boolean, null과 같은 다양한 데이터를 나타낼 수 있습니다.
+- JSON문자열의 경우 _"_ 기호를 이용하는 것이 특징입니다.
+
+**JSON.parse()**
+- JSON문자열을 JavaScript 객체로 변환할 때 해당 메서드를 사용합니다.
+- JSON문자열을 인자로 받으며 JavaScript 객체를 반환합니다.
+
+```javascript
+const jsonStr = {
+  "name" : "홍길동",
+  "age" : 25,
+  "married" : false,
+  "family" : {"father" : "홍판서", "mother" : "춘섬"},
+  "hobbies" : ["독서", "축구"],
+  "jobs" : null
+}
+
+const obj = JSON.parse(jsonStr);
+```
+- 해당 메서드를 통해서 JSON문자열을 JavaScript의 객체로 변환할 수 있습니다.
+- obj.name을 통해 name에 할당된 값에 접근할 수 있으며
+- obj.hobbies[1]을 통해 배열 객체에 접근할 수 있습니다.
+이렇게 JSON문자열을 JavaScript 객체로 변환하는 것을 _역직렬화_ 라고 부릅니다.
+
+
+**JSON.stringify()**
+- JavaScript 객체를 JSON문자열로 변환할 때 사용하는 메서드입니다.
+- _JSON.parse()_ 메서드와는 반대로 . 이나 _[]_ 기호를 통해 데이터에 접근이 불가능합니다.
+
+```javascript
+const obj = {
+  name: "홍길동",
+  age: 25,
+  married: false,
+  family: {
+    father: "홍판서",
+    mother: "춘섬",
+  },
+  hobbies: ["독서", "도술"],
+  jobs: null,
+}
+
+const str = JSON.stringify(obj);
+```
+
+이렇게 JavaScript 객체를 JSON문자열로 변환하는 것을 _직렬화_ 라고 부릅니다.
+
+**JSON문자열로 변환할 경우 모두 string 형태로 저장이 되기 때문에 JSON문자열을 JavaScript 객체로 변환해서 데이터를 가공할 경우에는 데이터 타입에 맞게 재설정을 해야합니다**
+
+
+# 10. 동기 비동기
+
+**동기와 비동기를 알기위해 알아야 할 JavaScript 동작원리**
+
+대중적인 자바스크립트의 엔진은 구글의 V8 엔진입니다. V8 엔진은 크롬과 노드 안에서 동작합니다.
+
+![JavaScript동작원리](../assets/images/javascriptBasic/callStack.png)
+
+- **Memory Heap** : 변수와 객체에 대한 모든 메모리 할당이 일어나는 곳입니다.
+- **Call Stack** : 코드가 실행될 때 스택이 쌓이는 곳입니다.
+- 브라우저는 단순히 엔진 하나만으로 구성되어있지 않습니다. _DOM_ , _AJAX_ , _setTimeout_ 등의 브라우저에서 제공하는 **Web API** 라는 것들이 존재합니다.
+- 이러한 **Web API** 호출을 통제하기 위한 _Event Queue_ 와 _Event Loop_ 가 존재합니다.
+
+**Call Stack**
+- JavaScript는 단일 스레드 프로그래밍 언어이므로, 단일 호출 스택이 존재하고 이것은 하나의 일만 처리할 수 있습니다.
+- 프로그램에서 현재 위치를 기록하는 데이터 구조입니다.
+- 함수를 실행하면 해당 함수의 기록을 스택 맨 위에 추가하며, 함수의 결과를 반환하면 스택에 쌓여있는 함수는 제거됩니다.
+```javascript
+function test(x){
+  console.log(x);
+  return x;
+}
+text(3);
+```
+1. test(3) 함수가 맨 처음 쌓이게 됩니다.
+2. console.log(x)가 쌓이게 되고 실행후 스택에서 제거됩니다.
+3. 3의 결과를 반환하며 test(3) 함수는 스택에서 제거됩니다.
+- 이러한 단일 스레드의 구조를 가지기 때문에 함수의 종료 조건 없이 재귀적으로 호출할 경우 _스택 오버플로우_ 에러가 발생하게 됩니다.
+
+**단일 호출 스택의 문제**
+- 브라우저에서 복잡한 이미지를 처리할 경우 단일 호출 스택의 동작 방식에 의해서 이미지 처리 작업 스택을 차지하게 되고, 후속 작업들은 처리를 하지 못하는 경우가 발생하게 됩니다.
+
+**비동기 콜백**
+- 단일 호출 스택의 문제를 해결하는 방법 중 하나입니다.
+- 특수한 시점에서 실행되는 콜백 함수이므로 스택안에 쌓일 필요가 없습니다.
+- 해당 콜백들은 호출 스택에서 관리되는 것이 아니고 _이벤트 큐_ 에서 관리가 됩니다.
+
+**이벤트 큐**
+- 처리할 메시지 목록과 실행할 콜백 함수들의 리스트입니다.
+- _Web API_ 에 해당하는 함수들이 호출되면, 해당 콜백함수를 _이벤트 큐_ 에 넣습니다.
+- _이벤트 큐_ 는 대기하다가 스택이 비는 시점에 _이벤트 루프_ 를 돌리게 됩니다.
+- _이벤트 루프_ 는 큐와 스택을 지켜보다가 스택이 비는 시점에 콜백을 실행 시켜주는 것입니다.
+
+**비동기 콜백의 동작 과정**
+
+![비동기 콜백 1](../assets/images/javascriptBasic/async1.png)
+
+1. 코드가 실행되면 글로벌 스택 프레임이 호출 스택에 쌓이게 됩니다.
+2. _setTimeout_ 함수가 호출 스택에 쌓이게 됩니다.
+3. 브라우저에서 제공하는 _Web API_ 이기 때문에 WebAPIs 부분에 _timeout, 1000_ 이 들어가게 됩니다.
+4. 이후 호출 스택에서는 _setTimeout_ 함수가 제거되지만, 해당 함수로 호출된 _Web API_ 는 요청된 시간동안 대기하게 됩니다.
+5. JavaScript 코드가 더 이상 실행할 것이 없으므로 호출 스택은 비워지게 됩니다.
+6. _timeout_ 이 만료가 되면 _Web API_ 는 _이벤트 루프_ 에 코드를 추가하여 JavaScript에 알릴 수 있습니다.
+7. _이벤트 루프_ 는 호출 스택에 이미 실행중인 코드가 있을 수 있음을 인지하고 대기중인 _Function_ 을 호출 스택에 바로 쌓지 않습니다.
+
+![비동기 콜백 2](../assets/images/javascriptBasic/async2.png)
+
+1. 호출 스택을 비워있을 경우 JavaScript의 RunTime 환경은 _이벤트 루프_ 에 대기중인 것이 있는지 확인하며, 대기중인 항목이 있을 경우 호출 스택으로 쌓습니다.
+2. console.log('hi'); 함수가 호출 스택에 쌓이게 됩니다.
+3. 해당 함수가 실행되고 콘솔에는 hi가 출력되며 호출 스택에서 해당 함수를 제거합니다.
+4. 마지막으로 함수에서 실행할 다른 명령이 없으므로 최종적으로 호출 스택에서 제거됩니다.
+
+
+**동기**
+- JavaScript는 동기적으로 처리하는 언어입니다.
+- 동기적으로 처리한다는 것은 한 작업이 실행되는 동안 다른 작업은 멈춘 상태를 유지하고 자신의 차례를 기다리는 것입니다.
+```javascript
+console.log('h1');
+console.log('h2');
+console.log('h3');
+```
+- 해당 코드의 경우 h1, h2, h3 순서대로 콘솔에 출력되게 됩니다.
+- 동기적으로 처리한다는 의미가 바로 순서대로 코드를 읽고 실행한다는 것입니다.
+- 서버에 데이터를 요청하고 응답을 받아야 하는 작업이 있다면, 응답이 올 때까지 다른 작업을 하지 못하고 대기해야 하는 문제를 발생시킬 수 있습니다.
+
+**비동기**
+- 메인 스레드가 작업을 다른 곳에 인가하여 처리하고, 그 작업이 완료되면 콜백 함수를 받아 실행하는 방식입니다.
+- 작업을 백그라운드에 요청하여 처리하게 하면서 작업을 동시에 처리하는 것입니다.
+- JavaScript에서는 보통 _setTimeout()_ 함수나 _fetch()_ 함수가 비동기적으로 동작하는 대표적인 함수입니다.
+
+```javascript
+console.log('1');
+setTimeout(function(){
+  console.log('2');
+}, 1000);
+console.log('3');
+
+function printImmediately(print){
+  print();
+}
+printImmediately(()=>console.log('hello'));
+```
+- 동기적인 처리로 콘솔에는 1과 3 그리고 _printImmediately_ 함수의 실행으로 hello가 출력되며 마지막으로 _setTimeout_ 함수에 의해 2가 출력됩니다.
+- _setTimeout_ 함수는 해당 함수를 1초 뒤에 실행한다는 의미이며 JavaScript는 순차적으로 명령을 실행하며 1초가 지난 시점에서 _setTimeout_ 함수에 넘겨진 함수를 비동기적으로 실행합니다.
+
+**비동기 문제**
+- 비동기 적으로 실행되는 코드가 존재하고, 그 다음 동기적 코드에서 비동기로 실행되는 코드의 결과를 이용해야할 경우, 아직 전달 받지 않은 데이터를 다루게 될 문제가 발생할 수 있습니다.
+- 이를 해결하기 위한 것이 _콜백 함수_ 입니다.
+
+```javascript
+function getDB() {
+    let data;
+    setTimeout(() => {
+        data = 100;
+    }, 3000);
+    return data;
+}
+
+function main() {
+    let value = getDB();
+    value *= 2;
+    console.log('value의 값 : ', value);
+}
+main(); 
+```
+- main 함수가 실행되는 시점에서 data의 값이 전달 받지 않아 오류가 발생하는 코드입니다.
+
+```javascript
+function getDB(callback) {
+    setTimeout(() => {
+        const value = 100;
+        callback(value);
+    }, 3000);
+}
+function main() {
+    getDB(function(value) {
+        let data = value * 2;
+        console.log('data의 값 : ', data);
+    });
+}
+main();
+```
+- 위에서 발생하는 문제를 콜백 함수를 통해 해결하는 코드입니다.
+- 콜백 함수를 인자로 넘김으로써 비동기적으로 받아오는 결과를 넘겨 해결하는 것입니다.
+- 하지만, 해당 코드는 간단하게 되어있어 눈으로 쉽게 파악할 수 있지만 코드들이 더 복잡해지고 콜백 함수에서 또 콜백 함수를 받는 구조가 더 깊어진다면 _디버깅_ , _오류해결_ , _유지보수_ 가 어려워질 수 있습니다.
+
+**무차별 적인 콜백 함수의 문제를 해결하기 위한 프로미스 객체**
+- 비동기 처리를 위한 전용 객체로 _Promise_ 를 사용합니다.
+- 비동기 작업의 성공 또는 실패와 그 결과값을 나타내는 객체입니다.
+- 프로미스는 3가지의 상태를 가집니다.
+  - pending : 프로미스 객체가 만들어져서 지정한 작업을 수행중인 상태입니다.
+  - fulfilled : 수행을 완료한 상태입니다.
+  - rejected : 수행중 오류가 발생한 상태입니다.
+- Producer : 기능을 수행해서 해당하는 데이터를 만들어내는 객체를 의미합니다.
+- Consumer : 만들어진 데이터를 소비하는 객체를 의미합니다.
+
+**producer**
+- Promise 객체에 콜백 함수를 전달해야합니다.
+- 이 콜백 함수는 _resolve_ 와 _reject_ 라는 콜백 함수를 전달해야합니다.
+- Promise를 만드는 순간 _producer_ 가 전달한 콜백 함수를 실행합니다.
+```javascript
+const promise = new Promise((resolve, reject) => {
+  console.log('something'); 
+  setTimeout(()=>{
+    resolve('ellie');
+    reject(new Error('no network'));
+  }, 2000);
+});
+```
+- Producer의 Promise 객체의 기본 구조입니다.
+- resolve : 기능을 정상적으로 수행해서 최종적으로 수행할 콜백 함수입니다.
+- reject : 기능을 수행하다가 문제가 생기면 호출하게되는 콜백 함수입니다.
+- _resolve_ 콜백 함수에는 비동기적으로 받아온 데이터를 가공해서 전달하는 것이 일반적입니다.
+
+
+**Consumer**
+- Promise 객체에 의해 기능이 잘 수행되었고 _resolve_ 콜백 함수에서 전달해준 데이터가 _then_ 함수의 인자로 넘어가게 됩니다.
+- Promise 객체에 의해 기능이 수행되지 않았고 에러가 발생할 경우 _reject_ 콜백 함수로 에러를 핸들링 해줌으로써 _catch_ 함수로 에러를 다룰수 있게 됩니다.
+- finally 의 경우 Promise 객체의 기능 수행 결과에 구애 받지 않고 무조건적으로 실행되는 함수입니다.
+```javascript
+promise
+.then((value) => {
+  console.log(value);
+})
+.catch(error => {
+  console.log(error);
+})
+.finally(()=>{console.log('finally')});
+```
+
+**Promise Chaining**
+- 여러 개의 프로미스 객체를 연결하여 사용할 수 있습니다.
+- _then_ 함수를 실행하면 새로운 프로미스 객체를 반환해서 연결 할 수 있습니다.
+```javascript
+const getHen = () => new Promise((resolve, reject) => {
+  setTimeout(() => resolve('chicken'), 1000);
+});
+const getEgg = hen => new Promise((resolve, reject) => {
+  setTimeout(() => reject(new Error(`Error ${hen} => egg`)), 1000);
+});
+const cook = egg => new Promise((resolve, reject) => {
+  setTimeout(() => resolve(`${egg} => chickEgg`), 1000);
+});
+
+getHen()
+.then(getEgg)
+.catch(()=> {
+  return 'bread';
+})
+.then(egg => cook(egg))
+.then(meal => console.log(meal))
+.catch(console.log)
+```
+- getHen() 함수를 실행하여 'chicken' 이라는 문자열이 반환되어 getEgg 함수의 _hen_ 이라는 곳에 전달됩니다.
+- getEgg() 함수를 실행하면서 에러를 발생시켰고 reject 함수를 명시하여 에러를 핸들링합니다.
+- catch 메서드에서 에러를 핸들링하게되고 return 문에 의해 에러를 발생시키는대신 'bread'라는 문자열을 반환합니다.
+- bread 라는 문자열이 egg 에 전달되며 cook(egg) 함수를 실행합니다.
+- egg는 bread라는 문자열의 값이고, cook 함수의 결과로 'bread => chickEgg'라는 문자열이 다음 then 메서드에 전달됩니다.
+- meal 이라는 값에 cook 함수의 결과값이 담기게 되고 console.log(meal) 함수에 의해 콘솔에 'bread => chickEgg' 라는 값이 출력됩니다.
